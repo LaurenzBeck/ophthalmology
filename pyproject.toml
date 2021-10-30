@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "ophthalmology"
+version = "0.1.0"
+description = "Contrastive Learning for Ophthalmology 👁"
+authors = ["Laurenz Hundgeburth <laurenzbeck@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/LaurenzBeck/ophthalmology"
+keywords = ["AI", "Deep Learning", "Contrastive Learning", "Ophthalmology"]
+packages = [{ include = "ophthalmology" }]
+include = ["LICENSE"]
+
+[tool.poetry.urls]
+"Linkedin" = "https://www.linkedin.com/in/laurenz-hundgeburth-50156b219/"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.10"
+# ML
+numpy = "^1.21.3"
+pandas = "^1.3.4"
+torch = "^1.10.0"
+torchaudio = "^0.10.0"
+torchvision = "^0.11.1"
+pytorch-lightning = "^1.4.9"
+lightning-bolts = "^0.4.0"
+torchmetrics = "^0.6.0"
+optuna = "^2.10.0"
+torchinfo = "^1.5.3"
+einops = "^0.3.2"
+# Logging
+loguru = "^0.5.3"
+mlflow = "^1.21.0"
+# CLI
+hydra-core = "^1.1.1"
+hydra-colorlog = "^1.1.0"
+typer = {version="^0.4.0", extras=["all"]}
+# Viz
+matplotlib = "^3.4.3"
+streamlit = "^1.1.0"
+altair = "^4.1.0"
+# Util
+python-dotenv = "^0.19.1"
+
+[tool.poetry.dev-dependencies]
+black = "^21.8b0"
+isort = "^5.9.3"
+snoop = "^0.4.0"
+pre-commit = "^2.15.0"
+kaggle = "^1.5.12"
+dvc = "^2.8.2"
+poethepoet = "^0.10.0"
+jupyter = "^1.0.0"
+ipykernel = "^6.4.2"
+
+[tool.poe.tasks]
+install-pytorch = "pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html"
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+line_length = 80
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
