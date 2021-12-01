@@ -690,7 +690,7 @@ psutil = "*"
 
 [[package]]
 name = "fsspec"
-version = "2021.10.1"
+version = "2021.11.1"
 description = "File-system specification"
 category = "main"
 optional = false
@@ -1444,6 +1444,18 @@ developer = ["black (==21.5b1)", "pre-commit (>=2.12)"]
 doc = ["sphinx (>=4.0,<5.0)", "pydata-sphinx-theme (>=0.6,<1.0)", "sphinx-gallery (>=0.9,<1.0)", "numpydoc (>=1.1)", "pillow (>=8.2)", "nb2plots (>=0.6)", "texext (>=0.6.6)"]
 extra = ["lxml (>=4.5)", "pygraphviz (>=1.7)", "pydot (>=1.4.1)"]
 test = ["pytest (>=6.2)", "pytest-cov (>=2.12)", "codecov (>=2.1)"]
+
+[[package]]
+name = "nfnets-pytorch"
+version = "0.1.3"
+description = "NFNets, PyTorch"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+torch = ">=1.5.0"
+torchvision = "*"
 
 [[package]]
 name = "nodeenv"
@@ -2836,7 +2848,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.10"
-content-hash = "699f17665e23727622c744dffcc31a196c728dd9780afc905daa102fb558ef78"
+content-hash = "359a863692fe9f02895b5b783ad72b7986be211ba7d379d5330dc0ebd37bcbb8"
 
 [metadata.files]
 absl-py = [
@@ -3192,8 +3204,8 @@ flatten-dict = [
     {file = "flufl.lock-6.0.tar.gz", hash = "sha256:fc748ee609ec864b4838ef649dbd1170fa79deb0c213c2fd51151bee6a7fc242"},
 ]
 fsspec = [
-    {file = "fsspec-2021.10.1-py3-none-any.whl", hash = "sha256:7164a488f3f5bf6a0fb39674978b756dda84e011a5db411a79791b7c38a36ff7"},
-    {file = "fsspec-2021.10.1.tar.gz", hash = "sha256:c245626e3cb8de5cd91485840b215a385fa6f2b0f6ab87978305e99e2d842753"},
+    {file = "fsspec-2021.11.1-py3-none-any.whl", hash = "sha256:bcb136caa37e1470dd8314a7d3917cb9b25dd9da44c10d36df556ab4ef038185"},
+    {file = "fsspec-2021.11.1.tar.gz", hash = "sha256:03683e606651d5e4bd9180525d57477bd5430e5dc68d2e459835dc14cecc3dd4"},
 ]
 ftfy = [
     {file = "ftfy-6.0.3.tar.gz", hash = "sha256:ba71121a9c8d7790d3e833c6c1021143f3e5c4118293ec3afb5d43ed9ca8e72b"},
@@ -3670,6 +3682,10 @@ nest-asyncio = [
 networkx = [
     {file = "networkx-2.6.3-py3-none-any.whl", hash = "sha256:80b6b89c77d1dfb64a4c7854981b60aeea6360ac02c6d4e4913319e0a313abef"},
     {file = "networkx-2.6.3.tar.gz", hash = "sha256:c0946ed31d71f1b732b5aaa6da5a0388a345019af232ce2f49c766e2d6795c51"},
+]
+nfnets-pytorch = [
+    {file = "nfnets-pytorch-0.1.3.tar.gz", hash = "sha256:4a5a692305621a40db46abb65ecb22e64492b57577dbd519022b16e238681a1b"},
+    {file = "nfnets_pytorch-0.1.3-py3-none-any.whl", hash = "sha256:bfd9023642fd70c96fbfcae7615e89d1f60ac6872830125c18129d36b668a9c1"},
 ]
 nodeenv = [
     {file = "nodeenv-1.6.0-py2.py3-none-any.whl", hash = "sha256:621e6b7076565ddcacd2db0294c0381e01fd28945ab36bcf00f41c5daf63bef7"},
