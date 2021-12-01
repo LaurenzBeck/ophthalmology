@@ -25,7 +25,7 @@ class MultilayerClassificationHead(nn.Module):
             in_features (int, optional): number of input feature maps or channels.
             hidden_layers (list[int], optional): list of numbers of neurons in each hidden layer. number of hidden
                 layers is determinded by the lenth of the list.
-            num_classes (int, optional): number of classes for the classification head. Defaults to 5 for IGBT.
+            num_classes (int, optional): number of classes for the classification head.
             dropout (Optional[float], optional): If provided include dropout with the given drop probability.
         """
         super(MultilayerClassificationHead, self).__init__()
