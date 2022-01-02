@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../kai/src"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
