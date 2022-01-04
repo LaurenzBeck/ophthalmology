@@ -1,9 +1,5 @@
-_target_: opthalmology.models.resnet.ResNet
+_target_: pl_bolts.utils.self_supervised.torchvision_ssl_encoder
 
-in_channels: 3
-out_channels: 42
-num_res_blocks: 4
-num_features: 24
-involution: True
-alpha: 0.1
-beta: 3.162
+_args_:
+  name: resnet50
+  pretrained: False

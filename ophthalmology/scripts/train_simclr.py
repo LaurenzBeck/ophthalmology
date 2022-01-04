@@ -28,7 +28,7 @@ def main(config: DictConfig):
     if "seed" in config:
         pl.utilities.seed.seed_everything(config.seed, workers=True)
 
-    model: torch.nn.Module = hydra.utils.instantiate(config.model)
+    model: torch.nn.Module = hydra.utils.call(config.model)
 
     if config.load_model:
         model.load_state_dict(torch.load(config.load_model))
