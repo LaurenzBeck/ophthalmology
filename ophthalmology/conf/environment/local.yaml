@@ -1,0 +1,3 @@
+workdir: "."
+datadir: "./data"
+logdir: "./logs"
