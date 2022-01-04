@@ -1,0 +1,38 @@
+# @package _global_
+
+# specify here default training configuration
+defaults:
+  - _self_
+  - trainer: default
+  - lightning_module: simclr
+  - model: attentive_nf_resnet_backbone
+  - transforms: weak
+  - datamodule: wisar_simclr
+  - callbacks: none
+  - logger: mlflow
+
+  - hydra: default
+  # enable color logging
+  - override hydra/hydra_logging: colorlog
+  - override hydra/job_logging: colorlog
+
+# seed for the random number generators
+seed: 42
+
+# path to original working directory
+# hydra hijacks working directory by changing it to the current log directory,
+# so it's useful to have this path as a special variable
+# learn more here: https://hydra.cc/docs/next/tutorials/basic/running_your_app/working_directory
+work_dir: ${hydra:runtime.cwd}
+
+# path to folder with data
+data_dir: ${work_dir}/data
+
+# print config at the start of the run
+print_config: True
+
+# Path to model checkpoint.
+load_model: null
+
+# Filename to save final model to
+save_model: null
