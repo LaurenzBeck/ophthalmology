@@ -82,6 +82,9 @@ def calculate_statisticst(
     log.info(
         f"calculation finished. \n means: {torch.stack(means).mean(dim=0)} \n stds: {torch.stack(stds).mean(dim=0)}"
     )
+    print(
+        f"means: {torch.stack(means).mean(dim=0)} \n stds: {torch.stack(stds).mean(dim=0)}"
+    )
 
 
 if __name__ == "__main__":
