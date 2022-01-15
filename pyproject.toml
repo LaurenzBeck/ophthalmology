@@ -55,6 +55,7 @@ dvc = "^2.8.2"
 poethepoet = "^0.10.0"
 jupyter = "^1.0.0"
 ipykernel = "^6.4.2"
+portray = "^1.7.0"
 
 [tool.poe.tasks]
 install-pytorch = "pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html"
@@ -69,6 +70,32 @@ include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
 ensure_newline_before_comments = true
+
+[tool.portray]
+modules = ["ophthalmology"]
+
+[tool.portray.mkdocs]
+markdown_extensions = [
+    "pymdownx.highlight",
+    "pymdownx.superfences",
+    "codehilite",
+    "pymdownx.inlinehilite",
+]
+
+[tool.portray.mkdocs.theme]
+favicon = "docs/images/retina.jpg"
+logo = "docs/images/retina.jpg"
+name = "material"
+
+[[tool.portray.mkdocs.nav]]
+Home = "README.md"
+
+[[tool.portray.mkdocs.nav]]
+Datasets = "docs/datasets.md"
+
+[[tool.portray.mkdocs.nav]]
+Experiments = "docs/experiments.md"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
