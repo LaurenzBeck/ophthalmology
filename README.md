@@ -14,6 +14,14 @@
 > ## ⚠️ Active Development
 > This Repository is in a very early concept/development stage and may drastically change. Use at your own risk.
 
+<p align="center">
+  links to the official docs:
+</p>
+<p align="center">
+  <a href="https://laurenzbeck.github.io/ophthalmology/docs/datasets/">💾 Datasets</a> •
+  <a href="https://laurenzbeck.github.io/ophthalmology/docs/experiments/">🔬 Experiments</a> •
+  <a href="https://laurenzbeck.github.io/ophthalmology/reference/ophthalmology/">🐍 API Reference</a>
+</p>
 ---
 
 ## Project
