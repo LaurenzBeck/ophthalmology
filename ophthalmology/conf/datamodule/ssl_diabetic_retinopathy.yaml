@@ -1,7 +1,7 @@
 _target_: ophthalmology.data.modules.SSLDiabeticRetinopythyDetection
 
-image_dir: ${environment.data_dir}/diabetic-retinopathy-detection/images
-csv_file: ${environment.data_dir}/diabetic-retinopathy-detection/all_labels.csv
+image_dir: ${environment.datadir}/diabetic-retinopathy-detection/images
+csv_file: ${environment.datadir}/diabetic-retinopathy-detection/all_labels.csv
 
 train_test_split: 0.98
 batch_size: 64

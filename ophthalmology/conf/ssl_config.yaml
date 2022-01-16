@@ -12,11 +12,10 @@ defaults:
   - logger: mlflow
 
   - hydra: default
+  - environment: local
   # enable color logging
   - override hydra/hydra_logging: colorlog
   - override hydra/job_logging: colorlog
-
-  - environment: local
 
 # seed for the random number generators
 seed: 42
@@ -29,3 +28,6 @@ load_model: null
 
 # Filename to save final model to
 save_model: null
+
+# patch size
+image_size: 256

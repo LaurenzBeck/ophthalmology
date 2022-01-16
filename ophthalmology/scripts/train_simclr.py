@@ -19,7 +19,7 @@ from loguru import logger as log
 from omegaconf import DictConfig, OmegaConf
 
 
-@hydra.main(config_path="./ophthalmology/conf/", config_name="ssl_config")
+@hydra.main(config_path="../conf/", config_name="ssl_config")
 def main(config: DictConfig):
 
     if config.get("print_config"):

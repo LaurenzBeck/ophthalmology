@@ -131,7 +131,7 @@ class SimCLR(pl.LightningModule):
         log.info("SimCLR Module ready")
 
     def forward(self, x):
-        return self.model(x)
+        return self.model(x.squeeze())
 
     def training_step(self, batch, batch_idx_):
         x1, x2 = batch

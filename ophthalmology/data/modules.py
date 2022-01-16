@@ -18,7 +18,7 @@ from pytorch_lightning.core.datamodule import LightningDataModule
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms
 
-from ophthalmology import data
+from ophthalmology.data import sets
 
 
 class DiabeticRetinopythyDetection(pl.LightningDataModule):
@@ -26,10 +26,10 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
 
     def __init__(
         self,
-        image_dir: str,
-        csv_file_train: str,
-        csv_file_test: str,
         train_transform: torch.nn.Module,
+        image_dir: str = "",
+        csv_file_train: str = "",
+        csv_file_test: str = "",
         image_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.8,
         batch_size: int = 16,
@@ -46,13 +46,13 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
 
-        self.data_set = data.sets.DiabeticRetinopythyDetection(
+        self.data_set = sets.DiabeticRetinopythyDetection(
             image_dir,
             csv_file_train,
             transforms.Compose([image_transform, train_transform]),
         )
 
-        self.test_dataset = data.sets.DiabeticRetinopythyDetection(
+        self.test_dataset = sets.DiabeticRetinopythyDetection(
             image_dir,
             csv_file_test,
             image_transform,
@@ -115,9 +115,9 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
 
     def __init__(
         self,
-        image_dir: str,
-        csv_file: str,
         ssl_transform: torch.nn.Module,
+        image_dir: str = "",
+        csv_file: str = "",
         image_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.98,
         batch_size: int = 16,
@@ -134,8 +134,8 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
 
-        self.data_set = data.sets.SimCLRWrapper(
-            data.sets.DiabeticRetinopythyDetection(
+        self.data_set = sets.SimCLRWrapper(
+            sets.DiabeticRetinopythyDetection(
                 image_dir, csv_file, image_transform
             ),
             ssl_transform,

@@ -1,7 +1,7 @@
-_target_: opthalmology.modules.simclr.SimCLR
+_target_: ophthalmology.modules.simclr.SimCLR
 
 #model
-num_features: ${model.num_features}
+num_features: ???
 num_hidden_projection_features: 64
 num_projection_features: 32
 
@@ -17,7 +17,7 @@ batch_size: ${datamodule.batch_size}
 
 #debugging/logging
 print_model_info_for_input:
-  - 1024
+  - 2
   - 3
-  - ${datamodule.image_size}
-  - ${datamodule.image_size}
+  - ${image_size}
+  - ${image_size}
