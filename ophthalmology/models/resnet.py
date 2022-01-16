@@ -24,6 +24,23 @@ class ResNetBackbone(nn.Module):
         name: str,
         pretrained: bool = False,
     ):
+        """constructor for the ResnetBackbone
+
+        Args:
+            name (str): one of [
+                                    "ResNet",
+                                    "resnet18",
+                                    "resnet34",
+                                    "resnet50",
+                                    "resnet101",
+                                    "resnet152",
+                                    "resnext50_32x4d",
+                                    "resnext101_32x8d",
+                                    "wide_resnet50_2",
+                                    "wide_resnet101_2",
+                                ]
+            pretrained (bool, optional): When true, use the pretrained resnet on imagenet. Defaults to False.
+        """
         super().__init__()
         self.encoder = torchvision_ssl_encoder(
             name,
