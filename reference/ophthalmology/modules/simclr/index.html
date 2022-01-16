@@ -5507,7 +5507,7 @@ the number of times :meth:<code>training_step</code> gets called before backprop
 <h4 id="add_to_queue">add_to_queue</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_to_queue</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">queue</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">BaseContext</span><span class="o">.</span><span class="n">SimpleQueue</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">DefaultContext</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f3ca9e82a90</span><span class="o">&gt;&gt;</span>
+    <span class="n">queue</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">BaseContext</span><span class="o">.</span><span class="n">SimpleQueue</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">DefaultContext</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7faebb4f9a90</span><span class="o">&gt;&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Appends the :attr:<code>trainer.callback_metrics</code> dictionary to the given queue. To avoid issues with memory
@@ -6268,7 +6268,7 @@ their serialized pickled form changes.</p>
 <h4 id="get_from_queue">get_from_queue</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_from_queue</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">queue</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">BaseContext</span><span class="o">.</span><span class="n">SimpleQueue</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">DefaultContext</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f3ca9e82a90</span><span class="o">&gt;&gt;</span>
+    <span class="n">queue</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">BaseContext</span><span class="o">.</span><span class="n">SimpleQueue</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">DefaultContext</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7faebb4f9a90</span><span class="o">&gt;&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Retrieve the :attr:<code>trainer.callback_metrics</code> dictionary from the given queue. To preserve consistency,
