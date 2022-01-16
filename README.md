@@ -49,7 +49,7 @@ For a proper downstream evaluation of the learned representations, three tasks o
 
 ## Dataset
 
-![retina scan](docs/images/diabetic_retinopathy_sample.jpeg)
+![retina scan](https://github.com/LaurenzBeck/ophthalmology/blob/main/docs/images/diabetic_retinopathy_sample.jpeg)
 
 Three public datasets were used during the experiments of the project:
 1) [Diabetic Retinopathy Detection](https://www.kaggle.com/c/diabetic-retinopathy-detection/data)
