@@ -45,9 +45,9 @@ selection and generation process on the downstream performance was chosen as the
 
 For a proper downstream evaluation of the learned representations, three tasks on retina scans are used:
 
-1) deasease grading of diabetic retinopathy
-2) image segmentation of certain anatomic and pathogen regions
-3) localization of important landmarks of the retina
+1. deasease grading of diabetic retinopathy
+2. image segmentation of certain anatomic and pathogen regions
+3. localization of important landmarks of the retina
 
 ## Dataset
 
@@ -55,9 +55,9 @@ For a proper downstream evaluation of the learned representations, three tasks o
 
 Three public datasets were used during the experiments of the project:
 
-1) [Diabetic Retinopathy Detection](https://www.kaggle.com/c/diabetic-retinopathy-detection/data)
-2) [Indian Diabetic Retinopathy Image Dataset](https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid)
-3) [Retina MNIST](https://medmnist.com/)
+1. [Diabetic Retinopathy Detection](https://www.kaggle.com/c/diabetic-retinopathy-detection/data)
+2. [Indian Diabetic Retinopathy Image Dataset](https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid)
+3. [Retina MNIST](https://medmnist.com/)
 
 ## Installation
 
