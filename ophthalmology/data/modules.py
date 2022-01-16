@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""## datamodules
+
+This module contains the pytorch_lightning datamodules for the different tasks and datasets
+"""
+
 import math
 import os
 from typing import Iterator, List, Optional
@@ -6,6 +11,9 @@ from typing import Iterator, List, Optional
 import pytorch_lightning as pl
 import torch
 from loguru import logger as log
+from pl_bolts.datamodules import (  # https://lightning-bolts.readthedocs.io/en/latest/deprecated/dataloaders/async.html
+    async_dataloader,
+)
 from pytorch_lightning.core.datamodule import LightningDataModule
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms

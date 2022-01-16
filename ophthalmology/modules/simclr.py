@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""SimCLR Pytorch Lightning implementation adopted from:
+"""## Contrastive representation learning task
+
+SimCLR Pytorch Lightning implementation adopted from:
 https://github.com/PyTorchLightning/Lightning-Bolts/blob/master/pl_bolts/models/self_supervised/simclr/simclr_module.py#L61-L300
 """
 

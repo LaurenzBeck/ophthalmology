@@ -1,6 +1,6 @@
 - _target_: torchvision.transforms.RandomHorizontalFlip
 - _target_: torchvision.transforms.RandomVerticalFlip
-- _target_: group7.layers.noise.RandomGaussianNoise
+- _target_: ophthalmology.layers.noise.RandomGaussianNoise
   var: 0.1
   apply_prob: 0.3
 - _target_: torchvision.transforms.RandomRotation

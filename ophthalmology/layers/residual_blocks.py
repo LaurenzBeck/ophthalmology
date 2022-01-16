@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Residual Blocks"""
+"""## Residual Blocks"""
 
 import nfnets
 import torch

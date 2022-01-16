@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Convolutional Stems"""
+"""## Convolutional Stems
+
+These stems serve as the first convolutional layers in a CNN network.
+They are responsible for a low-level feature extraction and dimensionality reduction.
+"""
 
 from enum import Enum
 from typing import Optional

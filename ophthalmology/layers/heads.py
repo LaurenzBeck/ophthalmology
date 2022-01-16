@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Different heads that expect their inputs to be flattened."""
+"""## Task-specific heads
+
+Different heads that expect their inputs to be flattened.
+"""
 
 from collections import OrderedDict
 from typing import List, Optional

@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""## Involution layer
+
+Involution: Inverting the Inherence of Convolution for Visual Recognition
+https://arxiv.org/abs/2103.06255v2
+"""
+
 from typing import Optional, Tuple, Union
 
 import torch

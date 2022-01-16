@@ -43,7 +43,7 @@ def clean_dataset(
 
     to_tensor_transform = transforms.ToTensor()
 
-    for idx, image_name, level in tqdm(df.itertuples()):
+    for idx, image_name, level in tqdm(df.itertuples(), total=len(df)):
         try:
             image_path = os.path.join(image_dir, (image_name + ".jpeg"))
             image = PIL.Image.open(image_path)

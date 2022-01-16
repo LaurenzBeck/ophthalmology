@@ -82,6 +82,9 @@ markdown_extensions = [
     "pymdownx.inlinehilite",
 ]
 
+[tool.portray.pdocs]
+exclude_source = true
+
 [tool.portray.mkdocs.theme]
 favicon = "docs/images/retina.jpg"
 logo = "docs/images/retina.jpg"

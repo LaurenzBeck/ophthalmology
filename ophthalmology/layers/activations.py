@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Activation Functions"""
+"""## Activation Functions"""
 
 import torch
 

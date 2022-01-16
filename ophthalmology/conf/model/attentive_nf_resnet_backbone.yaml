@@ -1,4 +1,4 @@
-_target_: group7.models.attentive_nf_resnet.AttentiveNFResNetBackbone
+_target_: ophthalmology.models.attentive_nf_resnet.AttentiveNFResNetBackbone
 
 in_channels: 3
 out_channels: 42

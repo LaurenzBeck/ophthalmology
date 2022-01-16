@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""## Custom Architectures similar to NFNets from Andrew Brock"""
+
 from typing import Optional
 
 import einops

@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Squeeze and Excitation Layer adapted from : """
+"""## Squeeze and Excitation layer
+
+Attention based primitive proposed by the paper "Squeeze-and-Excitation Networks":
+https://arxiv.org/abs/1709.01507
+"""
 
 import einops
 import snoop
