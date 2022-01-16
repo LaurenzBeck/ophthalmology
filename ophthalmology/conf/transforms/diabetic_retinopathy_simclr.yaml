@@ -1,5 +1,6 @@
 - _target_: torchvision.transforms.ToTensor
 - _target_: ophthalmology.layers.transforms.SimCLRAug
-  _kargs_:
+  _kwargs_:
     size: 256
     rotate_deg: 180
+    resize_scale: [0.4, 1.0]

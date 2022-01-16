@@ -6,7 +6,7 @@ defaults:
   - trainer: default
   - lightning_module: simclr
   - model: resnet
-  - transforms: weak
+  - transforms: diabetic_retinopathy_simclr
   - datamodule: ssl_diabetic_retinopathy
   - callbacks: none
   - logger: mlflow
