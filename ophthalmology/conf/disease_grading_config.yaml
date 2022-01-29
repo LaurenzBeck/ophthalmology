@@ -4,10 +4,11 @@
 defaults:
   - _self_
   - trainer: default
-  - lightning_module: simclr
-  - model: resnet_backbone
-  - transforms: simclr_aug
-  - datamodule: ssl_diabetic_retinopathy
+  - lightning_module: disease_grading
+  - model: resnet
+  - transforms@train_transforms: weak
+  - transforms@image_transforms: resize_normalize
+  - datamodule: diabetic_retinopathy
   - callbacks: none
   - logger: mlflow
 

@@ -1,4 +1,5 @@
-_target_: ophthalmology.models.resnet.ResNetBackbone
+_target_: ophthalmology.models.resnet.ResNet
 
 name: resnet50
+num_output_units: 5
 pretrained: False

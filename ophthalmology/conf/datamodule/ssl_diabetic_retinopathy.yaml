@@ -6,4 +6,4 @@ csv_file: ${environment.datadir}/diabetic-retinopathy-detection/all_labels.csv
 train_test_split: 0.98
 batch_size: 64
 num_workers: 1
-seed: 42
+seed: ${seed}

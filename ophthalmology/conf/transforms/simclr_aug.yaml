@@ -1,0 +1,10 @@
+_recursive_: True
+_convert_: partial
+_target_: torchvision.transforms.Compose
+_args_:
+  -
+    - _target_: torchvision.transforms.ToTensor
+    - _target_: ophthalmology.layers.transforms.SimCLRAug
+      size: ${image_size}
+      rotate_deg: 180
+      resize_scale: [0.4, 1.0]

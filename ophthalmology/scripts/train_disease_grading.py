@@ -13,13 +13,14 @@ from typing import List
 import hydra
 import mlflow
 import pytorch_lightning as pl
+import snoop
 import torch
 import torchvision
 from loguru import logger as log
 from omegaconf import DictConfig, OmegaConf
 
 
-@hydra.main(config_path="../conf/", config_name="ssl_config")
+@hydra.main(config_path="../conf/", config_name="disease_grading_config")
 def main(config: DictConfig):
 
     if config.get("print_config"):
@@ -36,10 +37,18 @@ def main(config: DictConfig):
     else:
         log.info("using a fresh model")
 
-    transforms: torch.nn.Module = hydra.utils.instantiate(config.transforms)
+    train_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.train_transforms
+    )
+
+    image_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.image_transforms
+    )
 
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
-        config.datamodule, transforms
+        config.datamodule,
+        train_transform=train_transforms,
+        image_transform=image_transforms,
     )
 
     lightning_module: pl.LightningModule = hydra.utils.instantiate(

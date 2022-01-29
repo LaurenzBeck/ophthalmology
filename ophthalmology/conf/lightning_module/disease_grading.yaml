@@ -9,7 +9,7 @@ num_train_samples: 276
 
 #debugging/logging
 print_model_info_for_input:
-  - 1024
+  - 8
   - 3
-  - ${datamodule.image_size}
-  - ${datamodule.image_size}
+  - ${image_size}
+  - ${image_size}
