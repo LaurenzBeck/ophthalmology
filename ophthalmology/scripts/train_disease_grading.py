@@ -67,7 +67,7 @@ def main(config: DictConfig):
         config.trainer, callbacks=trainer_callbacks, _convert_="partial"
     )
 
-    mlflow.set_tracking_uri(f"file:{config.environment.logdir}")
+    mlflow.set_tracking_uri(f"file:{config.environment.logdir}/mlruns")
     mlflow.set_experiment(config.logger.experiment_name)
 
     with mlflow.start_run(
@@ -86,6 +86,7 @@ def main(config: DictConfig):
         if config.save_model:
             log.info(f"saving model to {config.save_model}")
             torch.save(lightning_module.model.state_dict(), config.save_model)
+            mlflow.pytorch.log_model(lightning_module.model, "pytorch_model")
 
 
 if __name__ == "__main__":
