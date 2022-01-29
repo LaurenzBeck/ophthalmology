@@ -9,6 +9,7 @@ from typing import List, Optional, Tuple, Union
 
 import mlflow
 import pytorch_lightning as pl
+import snoop
 import torch
 import torchinfo
 import torchmetrics
@@ -94,6 +95,7 @@ class DiseaseGrading(pl.LightningModule):
     def forward(self, x):
         return self.model(x)
 
+    @snoop()
     def training_step(self, batch, batch_idx_):
         x, y = batch
 
@@ -116,6 +118,7 @@ class DiseaseGrading(pl.LightningModule):
 
         return loss
 
+    @snoop()
     def validation_step(self, batch, batch_idx_):
         x, y = batch
 

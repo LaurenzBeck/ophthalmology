@@ -86,13 +86,16 @@ class ResNet(nn.Module):
         """
         super().__init__()
 
-        self.model = getattr(resnets, name)(
-            pretrained=pretrained, return_all_feature_maps=False
+        self.encoder = torchvision_ssl_encoder(
+            name,
+            pretrained,
         )
-        self.model.fc = nn.Linear(2048, num_output_units)
+
+        self.fc = nn.Linear(2048, num_output_units)
 
     def forward(self, x):
         # torchvision_ssl_encoder returns a list of predictions, which we need to unpack
-        x = self.model(x)[0]
+        x = self.encoder(x)[0]
+        x = self.fc(x)
 
         return x
