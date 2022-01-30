@@ -18,6 +18,8 @@ import torchvision
 from loguru import logger as log
 from omegaconf import DictConfig, OmegaConf
 
+from ophthalmology import callbacks
+
 
 @hydra.main(config_path="../conf/", config_name="ssl_config")
 def main(config: DictConfig):
@@ -36,10 +38,18 @@ def main(config: DictConfig):
     else:
         log.info("using a fresh model")
 
-    transforms: torch.nn.Module = hydra.utils.instantiate(config.transforms)
+    ssl_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.ssl_transforms
+    )
+
+    test_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.test_transforms
+    )
 
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
-        config.datamodule, transforms
+        config.datamodule,
+        ssl_transform=ssl_transforms,
+        test_transform=test_transforms,
     )
 
     lightning_module: pl.LightningModule = hydra.utils.instantiate(
@@ -52,6 +62,23 @@ def main(config: DictConfig):
         hydra.utils.instantiate(cb_conf)
         for _, cb_conf in config.callbacks.items()
         if "callbacks" in config and "_target_" in cb_conf
+    ] + [
+        callbacks.SSLOnlineEvaluator(
+            datamodule.test_dataloader(),
+            drop_p=0.2,
+            hidden_dim=1024,
+            z_dim=2048,
+            num_classes=5,
+        ),
+        callbacks.LogDataSamplesCallback(datamodule.train_dataset, rows=5),
+        callbacks.LogSignalPropagationPlotCallback(
+            input_shape=[
+                16,
+                3,
+                config.image_size,
+                config.image_size,
+            ]
+        ),
     ]
 
     trainer: pl.Trainer = hydra.utils.instantiate(

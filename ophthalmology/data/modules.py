@@ -81,6 +81,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.batch_size,
             shuffle=True,
+            drop_last=True,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -93,6 +94,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
             self.val_dataset,
             batch_size=self.batch_size,
             shuffle=False,
+            drop_last=True,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -105,6 +107,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
             self.test_dataset,
             batch_size=self.batch_size,
             shuffle=False,
+            drop_last=True,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -118,7 +121,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         ssl_transform: torch.nn.Module,
         image_dir: str = "",
         csv_file: str = "",
-        image_transform: Optional[torch.nn.Module] = None,
+        test_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.98,
         batch_size: int = 16,
         num_workers: int = 1,
@@ -134,10 +137,12 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         self.batch_size = batch_size
         self.num_workers = num_workers
 
+        self.test_dataset = sets.DiabeticRetinopythyDetection(
+            image_dir, csv_file, test_transform
+        )
+
         self.data_set = sets.SimCLRWrapper(
-            sets.DiabeticRetinopythyDetection(
-                image_dir, csv_file, image_transform
-            ),
+            sets.DiabeticRetinopythyDetection(image_dir, csv_file, None),
             ssl_transform,
         )
 
@@ -164,6 +169,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.batch_size,
             shuffle=True,
+            drop_last=True,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -176,6 +182,20 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
             self.val_dataset,
             batch_size=self.batch_size,
             shuffle=False,
+            drop_last=True,
+            num_workers=self.num_workers,
+            generator=torch.Generator().manual_seed(self.seed),
+        )
+
+    def test_dataloader(self):
+        """
+        :return: output - Validation data loader for the given input
+        """
+        return DataLoader(
+            self.test_dataset,
+            batch_size=self.batch_size,
+            shuffle=False,
+            drop_last=True,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )

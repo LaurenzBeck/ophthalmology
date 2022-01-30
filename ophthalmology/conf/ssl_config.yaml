@@ -6,7 +6,8 @@ defaults:
   - trainer: default
   - lightning_module: simclr
   - model: resnet_backbone
-  - transforms: simclr_aug
+  - transforms@ssl_transforms: simclr_aug
+  - transforms@test_transforms: resize_normalize
   - datamodule: ssl_diabetic_retinopathy
   - callbacks: none
   - logger: mlflow

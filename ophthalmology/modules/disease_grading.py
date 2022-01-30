@@ -184,9 +184,7 @@ class DiseaseGrading(pl.LightningModule):
         scheduler = {
             "scheduler": torch.optim.lr_scheduler.CosineAnnealingLR(
                 optimizer,
-                T_max=math.ceil(
-                    self.epochs * train_iters_per_epoch * 1.166666666
-                ),
+                T_max=math.ceil(self.epochs * train_iters_per_epoch),
                 last_epoch=-1,
                 verbose=False,
             ),
