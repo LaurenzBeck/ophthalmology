@@ -168,6 +168,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
+            pin_memory=True,
             shuffle=True,
             drop_last=True,
             num_workers=self.num_workers,
