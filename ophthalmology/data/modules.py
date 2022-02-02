@@ -197,5 +197,4 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
-            generator=torch.Generator().manual_seed(self.seed),
         )
