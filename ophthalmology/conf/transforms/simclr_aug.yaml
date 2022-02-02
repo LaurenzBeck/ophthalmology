@@ -8,3 +8,4 @@ _args_:
       size: ${image_size}
       rotate_deg: 180
       resize_scale: [0.4, 1.0]
+      cuda: False
