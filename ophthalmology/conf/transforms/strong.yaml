@@ -11,7 +11,7 @@ _args_:
       var: 0.2
       apply_prob: 0.3
     - _target_: torchvision.transforms.RandomResizedCrop
-      size: ${datamodule.image_size}
+      size: ${image_size}
       scale: [0.75, 1.0]
       ratio: [0.9, 1.1]
     - _target_: torchvision.transforms.RandomRotation
