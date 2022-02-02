@@ -1,7 +1,7 @@
 _target_: ophthalmology.modules.simclr.SimCLR
 
 #model
-num_features: ???
+num_features: 2048
 num_hidden_projection_features: 64
 num_projection_features: 32
 
@@ -12,7 +12,7 @@ temperature: 0.1
 learning_rate: 3e-3
 weight_decay: 1e-4
 epochs: ${trainer.max_epochs}
-num_train_samples: ???
+num_train_samples: 88693
 batch_size: ${datamodule.batch_size}
 
 #debugging/logging

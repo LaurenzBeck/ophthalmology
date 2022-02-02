@@ -5,7 +5,7 @@ learning_rate: 3e-3
 weight_decay: 1e-4
 batch_size: ${datamodule.batch_size}
 epochs: ${trainer.max_epochs}
-num_train_samples: 276
+num_train_samples: 35124
 
 #debugging/logging
 print_model_info_for_input:
