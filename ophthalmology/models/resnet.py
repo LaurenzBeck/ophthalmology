@@ -64,6 +64,7 @@ class ResNet(nn.Module):
         self,
         name: str,
         num_output_units: int,
+        num_resnet_features: int = 2048,
         pretrained: bool = False,
     ):
         """constructor for the ResnetBackbone
@@ -82,6 +83,7 @@ class ResNet(nn.Module):
                                     "wide_resnet101_2",
                                 ]
             num_output_units (int): number of neurons in the last fc layer.
+            num_resnet_features (int): number of output features from the chosen resnet model.
             pretrained (bool, optional): When true, use the pretrained resnet on imagenet. Defaults to False.
         """
         super().__init__()
@@ -91,7 +93,7 @@ class ResNet(nn.Module):
             pretrained,
         )
 
-        self.fc = nn.Linear(2048, num_output_units)
+        self.fc = nn.Linear(num_resnet_features, num_output_units)
 
     def forward(self, x):
         # torchvision_ssl_encoder returns a list of predictions, which we need to unpack
