@@ -34,6 +34,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         train_test_split: float = 0.8,
         batch_size: int = 16,
         num_workers: int = 1,
+        pin_memory: bool = False,
         seed: int = 42,
     ):
         """
@@ -45,6 +46,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
 
         self.batch_size = batch_size
         self.num_workers = num_workers
+        self.pin_memory = pin_memory
 
         self.data_set = sets.DiabeticRetinopythyDetection(
             image_dir,
@@ -80,6 +82,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
             shuffle=True,
             drop_last=True,
             num_workers=self.num_workers,
@@ -93,6 +96,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.val_dataset,
             batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
@@ -106,6 +110,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.test_dataset,
             batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
@@ -125,6 +130,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         train_test_split: float = 0.98,
         batch_size: int = 16,
         num_workers: int = 1,
+        pin_memory: bool = False,
         seed: int = 42,
     ):
         """
@@ -136,6 +142,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
 
         self.batch_size = batch_size
         self.num_workers = num_workers
+        self.pin_memory = pin_memory
 
         self.test_dataset = sets.DiabeticRetinopythyDetection(
             image_dir, csv_file, test_transform
@@ -168,7 +175,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
-            pin_memory=True,
+            pin_memory=self.pin_memory,
             shuffle=True,
             drop_last=True,
             num_workers=self.num_workers,
@@ -182,6 +189,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.val_dataset,
             batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
@@ -195,6 +203,7 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         return DataLoader(
             self.test_dataset,
             batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
