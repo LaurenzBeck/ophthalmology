@@ -9,11 +9,11 @@ from typing import List, Optional, Sequence, Tuple, Union
 import mlflow
 import optuna
 import pytorch_lightning as pl
-import snoop
 import torch
 import torchmetrics
 from loguru import logger as log
 from matplotlib import pyplot as plt
+from pl_bolts.models.self_supervised.evaluator import SSLEvaluator
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
@@ -268,12 +268,11 @@ class SSLOnlineEvaluator(pl.Callback):  # pragma: no cover
         self.z_dim = z_dim
         self.num_classes = num_classes
         self.data_loader = data_loader
-        self.data_flow = cycle(data_loader)
 
     def on_pretrain_routine_start(
         self, trainer: Trainer, pl_module: LightningModule
     ) -> None:
-        from pl_bolts.models.self_supervised.evaluator import SSLEvaluator
+        self.data_flow = cycle(data_loader)
 
         pl_module.non_linear_evaluator = SSLEvaluator(
             n_input=self.z_dim,
@@ -338,7 +337,6 @@ class SSLOnlineEvaluator(pl.Callback):  # pragma: no cover
         )
         pl_module.log("online/F1", f1, on_step=True, on_epoch=False)
 
-    @snoop()
     def on_validation_epoch_end(
         self, trainer: "pl.Trainer", pl_module: "pl.LightningModule"
     ) -> None:
