@@ -272,7 +272,7 @@ class SSLOnlineEvaluator(pl.Callback):  # pragma: no cover
     def on_pretrain_routine_start(
         self, trainer: Trainer, pl_module: LightningModule
     ) -> None:
-        self.data_flow = cycle(data_loader)
+        self.data_flow = cycle(self.data_loader)
 
         pl_module.non_linear_evaluator = SSLEvaluator(
             n_input=self.z_dim,
