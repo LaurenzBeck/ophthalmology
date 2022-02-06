@@ -52,7 +52,7 @@ class DiseaseGrading(pl.LightningModule):
 
         # this line ensures params passed to LightningModule will be saved to ckpt
         # it also allows to access params with 'self.hparams' attribute
-        self.save_hyperparameters(ignore=["model"])
+        self.save_hyperparameters(ignore=["model", "loss"])
 
         # Turn off automatic optimization because the lr-scheduler makes problems in automatic mode...
         self.automatic_optimization = False

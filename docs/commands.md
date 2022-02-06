@@ -7,13 +7,13 @@ these are the commands to run the experiments on the jku server
 1. Resnet18 42 epochs, strong aug, batch_size 42 focal loss gamma 2
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal logger.run_name=resnet18_focal_loss_strong_aug_42_epochs save_model="resnet18_focal_strong_aug.pt" trainer.gpus=[0]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal logger.run_name=resnet18_focal_loss_strong_aug_42_epochs save_model="resnet18_focal_strong_aug.pt" trainer.gpus=[1]
 ```
 
 2. Resnet18 42 epochs, strong aug, batch_size 42, image size 128
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 image_size=128 datamodule.batch_size=42 logger.run_name=resnet18_128image_strong_aug_42_epochs save_model="resnet18_128image_strong_aug.pt" trainer.gpus=[1]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 image_size=128 datamodule.batch_size=42 logger.run_name=resnet18_128image_strong_aug_42_epochs save_model="resnet18_128image_strong_aug.pt" trainer.gpus=[0]
 ```
 
 3. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42
