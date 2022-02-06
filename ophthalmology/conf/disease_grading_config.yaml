@@ -5,8 +5,8 @@ defaults:
   - _self_
   - trainer: default
   - lightning_module: disease_grading
-  - model: resnet
-  - transforms@train_transforms: weak
+  - model: resnet50
+  - transforms@train_transforms: strong
   - transforms@image_transforms: resize_normalize
   - datamodule: diabetic_retinopathy
   - callbacks: none
