@@ -18,6 +18,9 @@ defaults:
   - override hydra/hydra_logging: colorlog
   - override hydra/job_logging: colorlog
 
+logger:
+  experiment_name: disease_grading
+
 # seed for the random number generators
 seed: 42
 
