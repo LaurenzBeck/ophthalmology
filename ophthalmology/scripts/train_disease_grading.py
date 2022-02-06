@@ -19,6 +19,8 @@ import torchvision
 from loguru import logger as log
 from omegaconf import DictConfig, OmegaConf
 
+from ophthalmology import utils
+
 
 @hydra.main(config_path="../conf/", config_name="disease_grading_config")
 def main(config: DictConfig):
@@ -78,6 +80,12 @@ def main(config: DictConfig):
         mlflow.pytorch.autolog(
             log_models=False,
             silent=False,
+        )
+
+        mlflow.log_artifacts(".hydra", ".hydra")
+
+        utils.log_hyperparameters(
+            config=config,
         )
 
         # Train the model ⚡
