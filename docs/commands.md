@@ -4,30 +4,28 @@ these are the commands to run the experiments on the jku server
 
 ## diabetic retinopathy desease grading - supervised baseline
 
-1. Resnet50 32 epochs, weak aug, batch_size 50
+1. Resnet18 42 epochs, strong aug, batch_size 42 focal loss gamma 2
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd datamodule.batch_size=50 datamodule.num_workers=24 logger.experiment_name=disease_grading logger.run_name=resnet50_weak_aug_32_epochs save_model="resnet50_weak_aug.pt" trainer.gpus="0"
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal logger.run_name=resnet18_focal_loss_strong_aug_42_epochs save_model="resnet18_focal_strong_aug.pt" trainer.gpus=[0]
 ```
 
-2. Resnet50 32 epochs, strong aug, batch_size 42
+2. Resnet18 42 epochs, strong aug, batch_size 42, image size 128
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd datamodule.batch_size=42 datamodule.num_workers=24 transforms@train_transforms=strong logger.experiment_name=disease_grading logger.run_name=resnet50_strong_aug_32_epochs save_model="resnet50_strong_aug.pt" trainer.gpus=[1]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 image_size=128 datamodule.batch_size=42 logger.run_name=resnet18_128image_strong_aug_42_epochs save_model="resnet18_128image_strong_aug.pt" trainer.gpus=[1]
 ```
 
-3. Resnet18 18 epochs, weak aug, batch_size 42
+3. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd datamodule.batch_size=42 datamodule.num_workers=24 model.name=resnet18 +model.num_resnet_features=512 logger.experiment_name=disease_grading logger.run_name=resnet18_weak_aug_32_epochs save_model="resnet18_weak_aug.pt" trainer.gpus=[2]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 model.pretrained=True datamodule.batch_size=42 logger.run_name=pretrained_resnet18_strong_aug_42_epochs save_model="pretrained_resnet18_strong_aug.pt" trainer.gpus=[2]
 ```
-
-4. imagenet pretrained
 
 ## diabetic retinopathycontrastive pre-training
 
-1. Resnet50 16 epochs, simclr aug, batch_size 36
+4. Resnet50 24 epochs, simclr aug, batch_size 42 image size 128
 
 ```bash
-python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=36 datamodule.num_workers=24 trainer.max_epochs=16 logger.experiment_name=simclr logger.run_name=simclr_aug_16_epochs  save_model="resnet50backbone_simclr_aug.pt" trainer.gpus=[3]
+python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 image_size=128 trainer.max_epochs=24 logger.run_name=simclr_aug_24_epochs  save_model="resnet50backbone_128image_simclr_aug.pt" trainer.gpus=[3]
 ```
