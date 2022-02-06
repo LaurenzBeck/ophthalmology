@@ -24,6 +24,7 @@ class DiseaseGrading(pl.LightningModule):
     def __init__(
         self,
         model: nn.Module,
+        loss: nn.Module,
         num_train_samples: int,
         learning_rate: float = 3e-3,
         batch_size: int = 32,
@@ -33,14 +34,19 @@ class DiseaseGrading(pl.LightningModule):
         epochs: int = 120,
         weight_decay: float = 1e-5,
     ):
-        """Disease Grading.
+        """Diabetic Retinopathy Disease Grading Task.
 
         Args:
-            learning_rate (float, optional): Defaults to 1e-3.
-            batch_size (int, optional): Defaults to 1.
+            model (nn.Module): pytorch model
+            loss (nn.Module): pytorch loss function
+            num_train_samples (int)
+            learning_rate (float, optional) Defaults to 3e-3.
+            batch_size (int, optional) Defaults to 32.
             print_model_info_for_input (Tuple[int, ...], optional): If defined, Print an overview over the signal
                 dimensions in each layer using the torchinfo.summary function for a given input size (e.g. (16, 1, 28, 28)).
                 Defaults to None.
+            epochs (int, optional) Defaults to 120.
+            weight_decay (float, optional) Defaults to 1e-5.
         """
         super().__init__()
 
@@ -61,7 +67,7 @@ class DiseaseGrading(pl.LightningModule):
         self.num_train_samples = num_train_samples
 
         # losses
-        self.loss = nn.CrossEntropyLoss()
+        self.loss = loss
 
         # torchmetrics
         self.val_metrics = torchmetrics.MetricCollection(

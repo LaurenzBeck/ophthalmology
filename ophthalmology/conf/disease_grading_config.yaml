@@ -5,6 +5,7 @@ defaults:
   - _self_
   - trainer: default
   - lightning_module: disease_grading
+  - lightning_module/loss: cross_entropy
   - model: resnet50
   - transforms@train_transforms: strong
   - transforms@image_transforms: resize_normalize

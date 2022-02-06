@@ -1,0 +1,3 @@
+_target_: ophthalmology.layers.losses.FocalLoss
+
+gamma: 2.0
