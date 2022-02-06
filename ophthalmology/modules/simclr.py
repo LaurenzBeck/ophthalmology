@@ -148,9 +148,7 @@ class SimCLR(pl.LightningModule):
         z2 = self.projection(h2)
 
         loss = self.train_loss(z1, z2)
-        self.log(
-            "train/loss", loss, on_step=True, on_epoch=False, prog_bar=True
-        )
+        self.log("train/loss", loss, prog_bar=True)
 
         self.manual_backward(loss)
         opt.step()
@@ -174,9 +172,7 @@ class SimCLR(pl.LightningModule):
         z2 = self.projection(h2)
 
         val_loss = self.train_loss(z1, z2)
-        self.log(
-            "val/loss", val_loss, on_step=False, on_epoch=True, prog_bar=True
-        )
+        self.log("val/loss", val_loss, prog_bar=True)
 
         return val_loss
 

@@ -103,9 +103,7 @@ class DiseaseGrading(pl.LightningModule):
 
         pred = self(x)
         loss = self.loss(pred, y)
-        self.log(
-            "train/loss", loss, on_step=True, on_epoch=False, prog_bar=True
-        )
+        self.log("train/loss", loss, prog_bar=True)
 
         self.manual_backward(loss)
         opt.step()
@@ -125,7 +123,7 @@ class DiseaseGrading(pl.LightningModule):
         metrics = self.val_metrics(pred.softmax(dim=-1), y)
         self.val_confusion_matrix(pred.softmax(dim=-1), y)
         # perform logging
-        self.log("val/loss", val_loss, on_step=False, on_epoch=True)
+        self.log("val/loss", val_loss)
         self.log(
             "val/acc", metrics["val/Accuracy"], prog_bar=True, logger=False
         )
@@ -153,7 +151,7 @@ class DiseaseGrading(pl.LightningModule):
         self.test_math_corr_coef(pred.softmax(dim=-1), y)
 
         # perform logging
-        self.log("test/loss", loss, on_step=True, prog_bar=True)
+        self.log("test/loss", loss)
         self.log_dict(metrics)
 
         return loss
