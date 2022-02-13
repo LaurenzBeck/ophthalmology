@@ -10,6 +10,7 @@ from typing import Iterator, List, Optional
 
 import pytorch_lightning as pl
 import torch
+import torchsampler
 from loguru import logger as log
 from pl_bolts.datamodules import (  # https://lightning-bolts.readthedocs.io/en/latest/deprecated/dataloaders/async.html
     async_dataloader,
@@ -18,6 +19,7 @@ from pytorch_lightning.core.datamodule import LightningDataModule
 from torch.utils.data import DataLoader, Subset, random_split
 from torchvision import transforms
 
+from ophthalmology import samplers
 from ophthalmology.data import sets
 
 
@@ -36,6 +38,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         num_workers: int = 1,
         pin_memory: bool = False,
         seed: int = 42,
+        balanced_sampling: bool = False,
     ):
         """
         Initialization of inherited lightning data module
@@ -43,6 +46,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         super(DiabeticRetinopythyDetection, self).__init__()
         self.train_test_split = train_test_split
         self.seed = seed
+        self.balanced_sampling = balanced_sampling
 
         self.batch_size = batch_size
         self.num_workers = num_workers
@@ -83,8 +87,15 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.batch_size,
             pin_memory=self.pin_memory,
-            shuffle=True,
-            drop_last=True,
+            sampler=samplers.ImbalancedDatasetSampler(
+                self.train_dataset,
+                callback_get_label=lambda dataset: dataset.dataset.get_labels(
+                    dataset.indices
+                ),
+                seed=self.seed,
+            )
+            if self.balanced_sampling
+            else None,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -132,6 +143,8 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         num_workers: int = 1,
         pin_memory: bool = False,
         seed: int = 42,
+        balanced_sampling: bool = False,
+        use_test_fraction: Optional[float] = None,
     ):
         """
         Initialization of inherited lightning data module
@@ -139,13 +152,14 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
         super(SSLDiabeticRetinopythyDetection, self).__init__()
         self.train_test_split = train_test_split
         self.seed = seed
+        self.balanced_sampling = balanced_sampling
 
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.pin_memory = pin_memory
 
         self.test_dataset = sets.DiabeticRetinopythyDetection(
-            image_dir, csv_file, test_transform
+            image_dir, csv_file, test_transform, use_test_fraction
         )
 
         self.data_set = sets.SimCLRWrapper(
@@ -176,8 +190,15 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.batch_size,
             pin_memory=self.pin_memory,
-            shuffle=True,
-            drop_last=True,
+            sampler=samplers.ImbalancedDatasetSampler(
+                self.train_dataset,
+                callback_get_label=lambda dataset: dataset.dataset.dataset.get_labels(
+                    dataset.indices
+                ),
+                seed=self.seed,
+            )
+            if self.balanced_sampling
+            else None,
             num_workers=self.num_workers,
             generator=torch.Generator().manual_seed(self.seed),
         )
@@ -193,7 +214,6 @@ class SSLDiabeticRetinopythyDetection(pl.LightningDataModule):
             shuffle=False,
             drop_last=True,
             num_workers=self.num_workers,
-            generator=torch.Generator().manual_seed(self.seed),
         )
 
     def test_dataloader(self):

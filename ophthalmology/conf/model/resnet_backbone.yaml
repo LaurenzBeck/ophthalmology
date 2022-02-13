@@ -1,4 +1,4 @@
 _target_: ophthalmology.models.resnet.ResNetBackbone
 
 name: resnet50
-pretrained: False
+pretrained: True

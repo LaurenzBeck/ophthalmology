@@ -3,4 +3,4 @@ _target_: ophthalmology.models.resnet.ResNet
 name: resnet50
 num_output_units: 5
 num_resnet_features: 2048
-pretrained: False
+pretrained: True

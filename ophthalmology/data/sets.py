@@ -19,10 +19,19 @@ class DiabeticRetinopythyDetection(Dataset):
     https://www.kaggle.com/c/diabetic-retinopathy-detection/data
     """
 
-    def __init__(self, image_dir: str, csv_file: str, transform=None):
+    def __init__(
+        self,
+        image_dir: str,
+        csv_file: str,
+        transform=None,
+        use_fraction: Optional[float] = None,
+    ):
         self.image_dir = image_dir
         self.df = pd.read_csv(csv_file)
         self.transform = transform
+
+        if use_fraction:
+            self.df = self.df.head(int(len(self.df) * use_fraction))
 
     def __len__(self):
         return len(self.df)
@@ -37,6 +46,12 @@ class DiabeticRetinopythyDetection(Dataset):
             image = self.transform(image)
 
         return (image, torch.tensor(level, dtype=torch.long))
+
+    def get_labels(self, indices: Optional[List[int]] = None):
+        if indices:
+            return list(self.df.loc[indices]["level"])
+        else:
+            return list(self.df["level"])
 
 
 class SimCLRWrapper(Dataset):
@@ -68,4 +83,4 @@ class SimCLRWrapper(Dataset):
         x_1 = self.transform(image)
         x_2 = self.transform(image)
 
-        return x_1, x_2
+        return x_1, x_2, label

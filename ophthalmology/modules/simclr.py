@@ -134,7 +134,7 @@ class SimCLR(pl.LightningModule):
         return self.model(x.squeeze())
 
     def training_step(self, batch, batch_idx_):
-        x1, x2 = batch
+        x1, x2, label_ = batch
 
         opt = self.optimizers()
         opt.zero_grad()
@@ -161,7 +161,7 @@ class SimCLR(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx_):
-        x1, x2 = batch
+        x1, x2, label_ = batch
 
         # get h representations
         h1 = self(x1)

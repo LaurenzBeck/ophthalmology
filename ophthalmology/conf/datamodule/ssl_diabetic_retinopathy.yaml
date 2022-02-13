@@ -8,3 +8,5 @@ batch_size: 64
 num_workers: 1
 pin_memory: True
 seed: ${seed}
+balanced_sampling: True
+use_test_fraction: 0.025

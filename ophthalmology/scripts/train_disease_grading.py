@@ -47,6 +47,10 @@ def main(config: DictConfig):
         config.image_transforms
     )
 
+    # set the seeds again to accomodate for different rng generator offsets
+    if "seed" in config:
+        pl.utilities.seed.seed_everything(config.seed, workers=True)
+
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
         config.datamodule,
         train_transform=train_transforms,

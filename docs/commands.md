@@ -4,28 +4,22 @@ these are the commands to run the experiments on the jku server
 
 ## diabetic retinopathy desease grading - supervised baseline
 
-1. Resnet18 42 epochs, strong aug, batch_size 42 focal loss gamma 2
+1. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42 focal loss gamma 2 balanced loader
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal logger.run_name=resnet18_focal_loss_strong_aug_42_epochs save_model="resnet18_focal_strong_aug.pt" trainer.gpus=[1]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal datamodule.balanced_sampling=True logger.run_name=balanced_resnet18_focal_loss_strong_aug_42_epochs save_model="pretrained_resnet18_focal_strong_aug_balanced.pt" trainer.gpus=[1]
 ```
 
-2. Resnet18 42 epochs, strong aug, batch_size 42, image size 128
+2. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 image_size=128 datamodule.batch_size=42 logger.run_name=resnet18_128image_strong_aug_42_epochs save_model="resnet18_128image_strong_aug.pt" trainer.gpus=[0]
-```
-
-3. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42
-
-```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 model.pretrained=True datamodule.batch_size=42 logger.run_name=pretrained_resnet18_strong_aug_42_epochs save_model="pretrained_resnet18_strong_aug.pt" trainer.gpus=[2]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 +lightning_module/loss.weight=[0.2710433110706335,2.8479000531632113,1.3632523221783943,8.82520593080725,8.88374792703151] logger.run_name=resnet18_strong_aug_42_epochs_weighted save_model="pretrained_resnet18_strong_aug_weighted.pt" trainer.gpus=[0]
 ```
 
 ## diabetic retinopathycontrastive pre-training
 
-4. Resnet50 24 epochs, simclr aug, batch_size 42 image size 128
+4. ImageNet pre-trained Resnet50 32 epochs, simclr aug, batch_size 42 image size 256, balanced loader
 
 ```bash
-python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 image_size=128 trainer.max_epochs=24 logger.run_name=simclr_aug_24_epochs  save_model="resnet50backbone_128image_simclr_aug.pt" trainer.gpus=[3]
+python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=32 logger.run_name=balanced_pretrained_simclr_aug_32_epochs  save_model="pretrained_resnet50backbone_256image_balanced_simclr_aug.pt" trainer.gpus=[3]
 ```
