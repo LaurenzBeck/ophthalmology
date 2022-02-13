@@ -7,13 +7,13 @@ these are the commands to run the experiments on the jku server
 1. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42 focal loss gamma 2 balanced loader
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal datamodule.balanced_sampling=True logger.run_name=balanced_resnet18_focal_loss_strong_aug_42_epochs save_model="pretrained_resnet18_focal_strong_aug_balanced.pt" trainer.gpus=[1]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=focal +datamodule.balanced_sampling=True logger.run_name=balanced_resnet18_focal_loss_strong_aug_42_epochs save_model="pretrained_resnet18_focal_strong_aug_balanced.pt" trainer.gpus=[1]
 ```
 
 2. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42
 
 ```bash
-python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 +lightning_module/loss.weight=[0.2710433110706335,2.8479000531632113,1.3632523221783943,8.82520593080725,8.88374792703151] logger.run_name=resnet18_strong_aug_42_epochs_weighted save_model="pretrained_resnet18_strong_aug_weighted.pt" trainer.gpus=[0]
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 +lightning_module/loss.weight=[0.2710433110706335,2.8479000531632113,1.3632523221783943,8.82520593080725,8.88374792703151] logger.run_name=resnet18_strong_aug_42_epochs_weighted save_model="pretrained_resnet18_strong_aug_weighted.pt" trainer.gpus=[2]
 ```
 
 ## diabetic retinopathycontrastive pre-training
