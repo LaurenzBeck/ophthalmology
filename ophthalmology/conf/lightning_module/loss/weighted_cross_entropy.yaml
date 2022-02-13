@@ -1,0 +1,6 @@
+_target_: torch.nn.CrossEntropyLoss
+
+weight:
+  _target_: torch.Tensor
+  _args_:
+    - [0.2710433110706335,2.8479000531632113,1.3632523221783943,8.82520593080725,8.88374792703151]
