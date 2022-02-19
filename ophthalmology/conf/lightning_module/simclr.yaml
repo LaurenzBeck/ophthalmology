@@ -10,7 +10,7 @@ temperature: 0.1
 
 #optimizer
 learning_rate: 3e-3
-weight_decay: 1e-4
+weight_decay: 1e-5
 epochs: ${trainer.max_epochs}
 num_train_samples: 88693
 batch_size: ${datamodule.batch_size}

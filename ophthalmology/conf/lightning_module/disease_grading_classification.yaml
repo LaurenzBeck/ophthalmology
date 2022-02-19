@@ -1,8 +1,8 @@
-_target_: ophthalmology.modules.disease_grading.DiseaseGrading
+_target_: ophthalmology.modules.disease_grading.DiseaseGradingClassification
 
 #optimizer
 learning_rate: 3e-3
-weight_decay: 1e-4
+weight_decay: 1e-5
 batch_size: ${datamodule.batch_size}
 epochs: ${trainer.max_epochs}
 num_train_samples: 35124

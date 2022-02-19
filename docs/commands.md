@@ -16,6 +16,12 @@ python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=
 python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 datamodule.batch_size=42 lightning_module/loss=weighted_cross_entropy logger.run_name=resnet18_strong_aug_42_epochs_weighted save_model="pretrained_resnet18_strong_aug_weighted.pt" trainer.gpus=[2]
 ```
 
+3. ImageNet pre-trained Resnet18 42 epochs, strong aug, batch_size 42 regression balanced loader
+
+```bash
+python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=resnet18 model.num_output_units=1 datamodule.batch_size=42 lightning_module=disease_grading_regression lightning_module/loss=mse +datamodule.balanced_sampling=True logger.run_name=balanced_resnet18_regression_strong_aug_42_epochs save_model="pretrained_resnet18_regression_strong_aug_balanced.pt" trainer.gpus=[2]
+```
+
 ## diabetic retinopathycontrastive pre-training
 
 4. ImageNet pre-trained Resnet50 32 epochs, simclr aug, batch_size 42 image size 256, balanced loader
