@@ -305,7 +305,6 @@ class DiseaseGradingRegression(pl.LightningModule):
 
         return loss
 
-    @snoop()
     def validation_step(self, batch, batch_idx_):
         x, y = batch
 
