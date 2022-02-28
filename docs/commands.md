@@ -27,5 +27,5 @@ python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=
 4. ImageNet pre-trained Resnet50 32 epochs, simclr aug, batch_size 42 image size 256, balanced loader
 
 ```bash
-python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=32 logger.run_name=balanced_pretrained_simclr_aug_32_epochs  save_model="pretrained_resnet50backbone_256image_balanced_simclr_aug.pt" trainer.gpus=[3]
+python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=42 transforms@ssl_transforms=strong_normalize logger.run_name=balanced_pretrained_strong_aug_42_epochs save_model="pretrained_resnet50backbone_256image_balanced_strong_aug.pt" trainer.gpus=[3]
 ```
