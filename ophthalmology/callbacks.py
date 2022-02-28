@@ -375,7 +375,7 @@ class SSLOnlineEvaluator(pl.Callback):  # pragma: no cover
         confusion_matrix = self.confusion_matrix.compute()
         fig = visualization.plot_confusion_matrix(
             confusion_matrix,
-            classes=["circle", "crescent", "double-crescent", "other", "spot"],
+            classes=["0 - healthy", "1", "2", "3", "4"],
             normalize=False,
         )
         mlflow.log_figure(fig, "val_confusion_matrix.png")
