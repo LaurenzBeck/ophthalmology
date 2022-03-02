@@ -8,6 +8,7 @@ import math
 import os
 from typing import Iterator, List, Optional
 
+import medmnist
 import pytorch_lightning as pl
 import torch
 from loguru import logger as log
@@ -195,6 +196,96 @@ class IndianDiabeticRetinopythyDetection(pl.LightningDataModule):
                 callback_get_label=lambda dataset: dataset.dataset.get_labels(
                     dataset.indices
                 ),
+                seed=self.seed,
+            )
+            if self.balanced_sampling
+            else None,
+            num_workers=self.num_workers,
+            generator=torch.Generator().manual_seed(self.seed),
+        )
+
+    def val_dataloader(self):
+        """
+        :return: output - Validation data loader for the given input
+        """
+        return DataLoader(
+            self.val_dataset,
+            batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
+            shuffle=False,
+            drop_last=True,
+            num_workers=self.num_workers,
+            generator=torch.Generator().manual_seed(self.seed),
+        )
+
+    def test_dataloader(self):
+        """
+        :return: output - Testing data loader for the given input
+        """
+        return DataLoader(
+            self.test_dataset,
+            batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
+            shuffle=False,
+            drop_last=True,
+            num_workers=self.num_workers,
+            generator=torch.Generator().manual_seed(self.seed),
+        )
+
+
+class RetinaMNIST(pl.LightningDataModule):
+    """Pytorch lightning datamodule for the RetinaMNIST dataset"""
+
+    def __init__(
+        self,
+        data_dir,
+        train_transform: torch.nn.Module = None,
+        test_transform: Optional[torch.nn.Module] = None,
+        batch_size: int = 16,
+        num_workers: int = 1,
+        pin_memory: bool = False,
+        seed: int = 42,
+        balanced_sampling: bool = False,
+    ):
+        """
+        Initialization of inherited lightning data module
+        """
+        super(RetinaMNIST, self).__init__()
+        self.seed = seed
+        self.balanced_sampling = balanced_sampling
+
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.pin_memory = pin_memory
+
+        self.train_dataset = medmnist.dataset.RetinaMNIST(
+            split="train",
+            transform=train_transform,
+            download=True,
+            root=data_dir,
+        )
+
+        self.val_dataset = medmnist.dataset.RetinaMNIST(
+            split="val", transform=test_transform, download=True, root=data_dir
+        )
+
+        self.test_dataset = medmnist.dataset.RetinaMNIST(
+            split="test", transform=test_transform, download=True, root=data_dir
+        )
+
+    def train_dataloader(self):
+        """
+        :return: output - Train data loader for the given input
+        """
+        return DataLoader(
+            self.train_dataset,
+            batch_size=self.batch_size,
+            pin_memory=self.pin_memory,
+            sampler=samplers.ImbalancedDatasetSampler(
+                self.train_dataset,
+                callback_get_label=lambda dataset: [
+                    dataset[i][1].item() for i in range(len(dataset))
+                ],
                 seed=self.seed,
             )
             if self.balanced_sampling
