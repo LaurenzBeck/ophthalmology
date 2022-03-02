@@ -240,7 +240,7 @@ class RetinaMNIST(pl.LightningDataModule):
         self,
         data_dir,
         train_transform: torch.nn.Module = None,
-        test_transform: Optional[torch.nn.Module] = None,
+        image_transform: Optional[torch.nn.Module] = None,
         batch_size: int = 16,
         num_workers: int = 1,
         pin_memory: bool = False,
@@ -263,14 +263,23 @@ class RetinaMNIST(pl.LightningDataModule):
             transform=train_transform,
             download=True,
             root=data_dir,
+            target_transform=lambda target: torch.tensor(target.item()),
         )
 
         self.val_dataset = medmnist.dataset.RetinaMNIST(
-            split="val", transform=test_transform, download=True, root=data_dir
+            split="val",
+            transform=image_transform,
+            download=True,
+            root=data_dir,
+            target_transform=lambda target: torch.tensor(target.item()),
         )
 
         self.test_dataset = medmnist.dataset.RetinaMNIST(
-            split="test", transform=test_transform, download=True, root=data_dir
+            split="test",
+            transform=image_transform,
+            download=True,
+            root=data_dir,
+            target_transform=lambda target: torch.tensor(target.item()),
         )
 
     def train_dataloader(self):
