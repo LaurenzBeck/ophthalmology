@@ -1,0 +1,12 @@
+_target_: ophthalmology.data.modules.IndianDiabeticRetinopythyDetection
+
+image_dir_train: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/B. Disease Grading/1. Original Images/a. Training Set"
+image_dir_test: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/B. Disease Grading/1. Original Images/b. Testing Set"
+csv_file_train: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/B. Disease Grading/2. Groundtruths/a. IDRiD_Disease Grading_Training Labels.csv"
+csv_file_test: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/B. Disease Grading/2. Groundtruths/b. IDRiD_Disease Grading_Testing Labels.csv"
+
+train_test_split: 0.9
+batch_size: 64
+pin_memory: True
+num_workers: 1
+seed: ${seed}

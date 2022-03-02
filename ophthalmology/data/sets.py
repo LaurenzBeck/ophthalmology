@@ -54,6 +54,46 @@ class DiabeticRetinopythyDetection(Dataset):
             return list(self.df["level"])
 
 
+class IndianDiabeticRetinopythyDetection(Dataset):
+    """torch.utils.data.Dataset for the Indian Diabetic Retinopathy Detection dataset from:
+    https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid
+    """
+
+    def __init__(
+        self,
+        image_dir: str,
+        csv_file: str,
+        transform=None,
+        use_fraction: Optional[float] = None,
+    ):
+        self.image_dir = image_dir
+        self.df = pd.read_csv(csv_file)
+        self.transform = transform
+
+        if use_fraction:
+            self.df = self.df.head(int(len(self.df) * use_fraction))
+
+    def __len__(self):
+        return len(self.df)
+
+    def __getitem__(self, index):
+        entry = self.df.iloc[index]
+        image_name, level = entry["Image name"], entry["Retinopathy grade"]
+        image_path = os.path.join(self.image_dir, (image_name + ".jpg"))
+        image = PIL.Image.open(image_path)
+
+        if self.transform:
+            image = self.transform(image)
+
+        return (image, torch.tensor(level, dtype=torch.long))
+
+    def get_labels(self, indices: Optional[List[int]] = None):
+        if indices:
+            return list(self.df.loc[indices]["Retinopathy grade"])
+        else:
+            return list(self.df["Retinopathy grade"])
+
+
 class SimCLRWrapper(Dataset):
     """This class wraps a pytorch Dataset and performs two transformations
     on each __get_item__ call as needed for the SimCLR framework.
