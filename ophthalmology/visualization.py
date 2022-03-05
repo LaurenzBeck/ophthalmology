@@ -37,8 +37,6 @@ def plot_confusion_matrix(
     Returns:
         plt.Figure: [description]
     """
-    log.info("creating confusion matrix")
-
     if isinstance(cm, torch.Tensor):
         cm = cm.cpu().numpy()
     if normalize:
