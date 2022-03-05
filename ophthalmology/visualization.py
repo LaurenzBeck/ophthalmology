@@ -6,14 +6,16 @@ needed for logging, data exploration and the final dashboards.
 """
 
 import itertools
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import einops
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from loguru import logger as log
 from matplotlib.colors import Colormap
 from torch.utils.data import Dataset
+from tqdm import tqdm
 
 
 def plot_confusion_matrix(
@@ -35,6 +37,8 @@ def plot_confusion_matrix(
     Returns:
         plt.Figure: [description]
     """
+    log.info("creating confusion matrix")
+
     if isinstance(cm, torch.Tensor):
         cm = cm.cpu().numpy()
     if normalize:
@@ -69,7 +73,12 @@ def plot_confusion_matrix(
 
 
 def visualize_samples_from_dataset(
-    dataset: Dataset, rows: int = 5
+    dataset: Dataset,
+    rows: int = 5,
+    undo_normalization: Optional[Tuple[List[float], List[float]]] = (
+        [0.3211, 0.2243, 0.1602],
+        [0.2617, 0.1825, 0.1308],
+    ),
 ) -> plt.Figure:
     """Visualize a grid of samples without titles/labels in a single plot.
 
@@ -80,11 +89,20 @@ def visualize_samples_from_dataset(
     Returns:
         plt.Figure: matplotlib figure
     """
+    log.info("logging samples from dataset")
+
     fig = plt.figure(figsize=(rows * 2, rows * 2))
 
-    for idx in range(rows * rows):
+    for idx in tqdm(range(rows * rows)):
         plt.subplot(rows, rows, idx + 1)
         img = dataset[np.random.randint(0, len(dataset))][0]
+
+        if undo_normalization:
+            means, stds = undo_normalization
+            means = torch.tensor(means).reshape(3, 1, 1)
+            stds = torch.tensor(stds).reshape(3, 1, 1)
+            img = torch.clamp(img * stds + means, 0.0, 1.0)
+
         plt.imshow(einops.rearrange(img.squeeze().numpy(), "c w h -> w h c"))
         plt.axis("off")
         plt.tight_layout(pad=0.0)

@@ -1,0 +1,33 @@
+_recursive_: True
+_convert_: partial
+_target_: torchvision.transforms.Compose
+_args_:
+  -
+    - _target_: torchvision.transforms.ToTensor
+    - _target_: torchvision.transforms.Resize
+      _args_:
+        -
+          - ${image_size}
+          - ${image_size}
+    - _target_: torchvision.transforms.RandomHorizontalFlip
+    - _target_: torchvision.transforms.RandomVerticalFlip
+    - _target_: ophthalmology.layers.noise.RandomGaussianNoise
+      var: 0.1
+      apply_prob: 0.3
+    - _target_: torchvision.transforms.RandomRotation
+      _args_:
+        - 180
+    - _target_: torchvision.transforms.GaussianBlur
+      _args_:
+        - 3
+        - [0.001, 0.6]
+    - _target_: torchvision.transforms.Normalize
+      _args_:
+        -
+          - 0.3211
+          - 0.2243
+          - 0.1602
+        -
+          - 0.2617
+          - 0.1825
+          - 0.1308

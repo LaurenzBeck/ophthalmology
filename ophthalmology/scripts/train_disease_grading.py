@@ -19,7 +19,7 @@ import torchvision
 from loguru import logger as log
 from omegaconf import DictConfig, OmegaConf
 
-from ophthalmology import utils
+from ophthalmology import callbacks, utils
 
 
 @hydra.main(config_path="../conf/", config_name="disease_grading_config")
@@ -67,6 +67,8 @@ def main(config: DictConfig):
         hydra.utils.instantiate(cb_conf)
         for _, cb_conf in config.callbacks.items()
         if "callbacks" in config and "_target_" in cb_conf
+    ] + [
+        callbacks.LogDataSamplesCallback(datamodule.train_dataset, rows=5),
     ]
 
     trainer: pl.Trainer = hydra.utils.instantiate(
