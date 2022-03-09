@@ -1,0 +1,14 @@
+_target_: ophthalmology.data.modules.IndianDiabeticRetinopythyDetectionLocalization
+
+image_dir_train: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/1. Original Images/a. Training Set"
+image_dir_test: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/1. Original Images/b. Testing Set"
+csv_file_train_disk: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/2. Groundtruths/1. Optic Disc Center Location/a. IDRiD_OD_Center_Training Set_Markups.csv"
+csv_file_test_disk: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/2. Groundtruths/1. Optic Disc Center Location/b. IDRiD_OD_Center_Testing Set_Markups.csv"
+csv_file_train_fovea: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/2. Groundtruths/2. Fovea Center Location/IDRiD_Fovea_Center_Training Set_Markups.csv"
+csv_file_test_fovea: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/C. Localization/2. Groundtruths/2. Fovea Center Location/IDRiD_Fovea_Center_Testing Set_Markups.csv"
+
+train_test_split: 0.9
+batch_size: 21
+pin_memory: True
+num_workers: 1
+seed: ${seed}

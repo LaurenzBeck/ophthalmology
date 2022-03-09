@@ -94,6 +94,55 @@ class IndianDiabeticRetinopythyDetection(Dataset):
             return list(self.df["Retinopathy grade"])
 
 
+class IndianDiabeticRetinopythyDetectionLocalization(Dataset):
+    """torch.utils.data.Dataset for the Indian Diabetic Retinopathy Detection dataset from:
+    https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid
+    """
+
+    def __init__(
+        self,
+        image_dir: str,
+        csv_file_disk: str,
+        csv_file_fovea: str,
+        transform=None,
+        use_fraction: Optional[float] = None,
+    ):
+        self.image_dir = image_dir
+        self.df_disk = pd.read_csv(csv_file_disk).dropna(subset=["Image No"])
+        self.df_fovea = pd.read_csv(csv_file_fovea).dropna(subset=["Image No"])
+        self.transform = transform
+
+        if use_fraction:
+            self.df_disk = self.df_disk.head(
+                int(len(self.df_disk) * use_fraction)
+            )
+            self.df_fovea = self.df_fovea.head(
+                int(len(self.df_fovea) * use_fraction)
+            )
+
+    def __len__(self):
+        return len(self.df_disk)
+
+    def __getitem__(self, index):
+        entry_disk = self.df_disk.iloc[index]
+        entry_fovea = self.df_fovea.iloc[index]
+        image_name = entry_disk["Image No"]
+        disk_x = entry_disk["X- Coordinate"] / 4288  # image width
+        disk_y = entry_disk["Y - Coordinate"] / 2848  # image height
+        fovea_x = entry_fovea["X- Coordinate"] / 4288  # image width
+        fovea_y = entry_fovea["Y - Coordinate"] / 2848  # image height
+        image_path = os.path.join(self.image_dir, (image_name + ".jpg"))
+        image = PIL.Image.open(image_path)
+
+        if self.transform:
+            image = self.transform(image)
+
+        return (
+            image,
+            torch.tensor([disk_x, disk_y, fovea_x, fovea_y], dtype=torch.float),
+        )
+
+
 class SimCLRWrapper(Dataset):
     """This class wraps a pytorch Dataset and performs two transformations
     on each __get_item__ call as needed for the SimCLR framework.

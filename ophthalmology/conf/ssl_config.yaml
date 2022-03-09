@@ -2,7 +2,6 @@
 
 # specify here default training configuration
 defaults:
-  - _self_
   - trainer: default
   - lightning_module: simclr
   - model: resnet_backbone
@@ -17,6 +16,8 @@ defaults:
   # enable color logging
   - override hydra/hydra_logging: colorlog
   - override hydra/job_logging: colorlog
+
+  - _self_
 
 logger:
   experiment_name: simclr

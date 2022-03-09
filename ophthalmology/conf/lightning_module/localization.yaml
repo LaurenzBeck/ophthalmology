@@ -1,0 +1,15 @@
+_target_: ophthalmology.modules.localization.Localization
+
+#optimizer
+learning_rate: 3e-3
+weight_decay: 1e-5
+batch_size: ${datamodule.batch_size}
+epochs: ${trainer.max_epochs}
+num_train_samples: 371
+
+#debugging/logging
+print_model_info_for_input:
+  - 8
+  - 3
+  - ${image_size}
+  - ${image_size}

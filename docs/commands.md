@@ -36,8 +36,8 @@ python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=
 
 ## diabetic retinopathycontrastive pre-training
 
-6. ImageNet pre-trained Resnet50 64 epochs, medium aug, batch_size 42 image size 256, balanced loader
+6. ImageNet pre-trained Resnet50 64 epochs, strong aug, batch_size 42 image size 256, balanced loader
 
 ```bash
-python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=64 transforms@ssl_transforms=medium_normalize logger.run_name=balanced_pretrained_medium_aug_64_epochs save_model="pretrained_resnet50backbone_256image_balanced_medium_aug.pt" trainer.gpus=[3]
+python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=64 transforms@ssl_transforms=strong_normalize logger.run_name=balanced_pretrained_strong_aug_64_epochs save_model="pretrained_resnet50backbone_256image_balanced_strong_aug.pt" trainer.gpus=[0]
 ```
