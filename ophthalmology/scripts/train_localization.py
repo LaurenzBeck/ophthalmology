@@ -97,6 +97,9 @@ def main(config: DictConfig):
         # Train the model ⚡
         trainer.fit(lightning_module, datamodule)
 
+        # Test the model 🔥
+        trainer.test(lightning_module, datamodule)
+
         if config.save_model:
             log.info(
                 f"saving model to {hydra.utils.to_absolute_path(config.save_model)}"

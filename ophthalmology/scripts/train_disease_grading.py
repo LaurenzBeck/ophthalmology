@@ -104,6 +104,9 @@ def main(config: DictConfig):
             torch.save(lightning_module.model.state_dict(), config.save_model)
             mlflow.pytorch.log_model(lightning_module.model, "pytorch_model")
 
+        # Test the model 🔥
+        trainer.test(lightning_module, datamodule)
+
 
 if __name__ == "__main__":
     main()
