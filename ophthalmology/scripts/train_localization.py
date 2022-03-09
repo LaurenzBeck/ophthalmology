@@ -97,15 +97,15 @@ def main(config: DictConfig):
         # Train the model ⚡
         trainer.fit(lightning_module, datamodule)
 
-        # Test the model 🔥
-        trainer.test(lightning_module, datamodule)
-
         if config.save_model:
             log.info(
                 f"saving model to {hydra.utils.to_absolute_path(config.save_model)}"
             )
             torch.save(lightning_module.model.state_dict(), config.save_model)
             mlflow.pytorch.log_model(lightning_module.model, "pytorch_model")
+
+        # Test the model 🔥
+        trainer.test(lightning_module, datamodule)
 
 
 if __name__ == "__main__":
