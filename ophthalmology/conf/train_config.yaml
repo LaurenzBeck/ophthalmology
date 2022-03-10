@@ -11,6 +11,7 @@ defaults:
   - datamodule: diabetic_retinopathy
   - callbacks: none
   - logger: mlflow
+  - experiment: sup_drd_grading
 
   - hydra: default
   - environment: local
@@ -20,11 +21,11 @@ defaults:
 
   - _self_
 
-logger:
-  experiment_name: disease_grading
-
 # seed for the random number generators
 seed: 42
+
+# patch size
+image_size: 256
 
 # print config at the start of the run
 print_config: True
@@ -34,6 +35,3 @@ load_model: null
 
 # Filename to save final model to
 save_model: null
-
-# patch size
-image_size: 256

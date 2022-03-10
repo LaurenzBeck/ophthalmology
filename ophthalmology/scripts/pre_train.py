@@ -13,7 +13,6 @@ from typing import List
 import hydra
 import mlflow
 import pytorch_lightning as pl
-import snoop
 import torch
 import torchvision
 from loguru import logger as log
@@ -22,7 +21,7 @@ from omegaconf import DictConfig, OmegaConf
 from ophthalmology import callbacks, utils
 
 
-@hydra.main(config_path="../conf/", config_name="localization_config")
+@hydra.main(config_path="../conf/", config_name="pre_train_config")
 def main(config: DictConfig):
 
     if config.get("print_config"):
@@ -39,12 +38,12 @@ def main(config: DictConfig):
     else:
         log.info("using a fresh model")
 
-    train_transforms: torch.nn.Module = hydra.utils.instantiate(
-        config.train_transforms
+    ssl_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.ssl_transforms
     )
 
-    image_transforms: torch.nn.Module = hydra.utils.instantiate(
-        config.image_transforms
+    test_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.test_transforms
     )
 
     # set the seeds again to accomodate for different rng generator offsets
@@ -53,8 +52,8 @@ def main(config: DictConfig):
 
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
         config.datamodule,
-        train_transform=train_transforms,
-        image_transform=image_transforms,
+        ssl_transform=ssl_transforms,
+        test_transform=test_transforms,
     )
 
     lightning_module: pl.LightningModule = hydra.utils.instantiate(
@@ -68,7 +67,22 @@ def main(config: DictConfig):
         for _, cb_conf in config.callbacks.items()
         if "callbacks" in config and "_target_" in cb_conf
     ] + [
+        callbacks.SSLOnlineEvaluator(
+            datamodule.test_dataloader(),
+            drop_p=0.2,
+            hidden_dim=1024,
+            z_dim=2048,
+            num_classes=5,
+        ),
         callbacks.LogDataSamplesCallback(datamodule.train_dataset, rows=5),
+        callbacks.LogSignalPropagationPlotCallback(
+            input_shape=[
+                16,
+                3,
+                config.image_size,
+                config.image_size,
+            ]
+        ),
     ]
 
     trainer: pl.Trainer = hydra.utils.instantiate(
@@ -103,9 +117,6 @@ def main(config: DictConfig):
             )
             torch.save(lightning_module.model.state_dict(), config.save_model)
             mlflow.pytorch.log_model(lightning_module.model, "pytorch_model")
-
-        # Test the model 🔥
-        trainer.test(lightning_module, datamodule)
 
 
 if __name__ == "__main__":
