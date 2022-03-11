@@ -2,7 +2,7 @@ _target_: ophthalmology.data.modules.RetinaMNIST
 
 data_dir: ${environment.datadir}
 
-batch_size: 64
+batch_size: 42
 pin_memory: True
 num_workers: 1
 seed: ${seed}

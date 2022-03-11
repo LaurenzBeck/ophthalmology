@@ -2,6 +2,7 @@
 
 # specify here default training configuration
 defaults:
+  - _self_
   - trainer: default
   - lightning_module/loss: cross_entropy
   - lightning_module: disease_grading_classification
@@ -18,8 +19,6 @@ defaults:
   # enable color logging
   - override hydra/hydra_logging: colorlog
   - override hydra/job_logging: colorlog
-
-  - _self_
 
 # seed for the random number generators
 seed: 42

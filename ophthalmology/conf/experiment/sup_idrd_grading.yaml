@@ -1,0 +1,22 @@
+# @package _global_
+
+defaults:
+  - override /lightning_module/loss: mse
+  - override /lightning_module: disease_grading_regression
+  - override /datamodule: indian_diabetic_retinopathy
+  - override /model: resnet18
+
+logger:
+  experiment_name: indian_disease_grading
+  run_name: sup_idrd_grading
+
+model:
+  num_output_units: 1
+
+lightning_module:
+  num_train_samples: 371
+
+trainer:
+  max_epochs: 640
+
+save_model: "sup_idrd_grading.pt"

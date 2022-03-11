@@ -6,7 +6,7 @@ csv_file_train: "${environment.datadir}/indian-diabetic-retinopythy-image-datase
 csv_file_test: "${environment.datadir}/indian-diabetic-retinopythy-image-dataset/B. Disease Grading/2. Groundtruths/b. IDRiD_Disease Grading_Testing Labels.csv"
 
 train_test_split: 0.9
-batch_size: 64
+batch_size: 42
 pin_memory: True
 num_workers: 1
 seed: ${seed}

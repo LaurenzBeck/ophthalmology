@@ -11,3 +11,11 @@ logger:
 
 model:
   num_output_units: 4
+
+lightning_module:
+  num_train_samples: 371
+
+trainer:
+  max_epochs: 640
+
+save_model: "sup_idrd_localization.pt"
