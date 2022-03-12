@@ -1,0 +1,27 @@
+# @package _global_
+
+defaults:
+  - override /lightning_module/loss: mse
+  - override /lightning_module: localization
+  - override /datamodule: indian_diabetic_retinopathy_localization
+  - override /model: resnet_backbone
+  - override /head: multilayer
+
+logger:
+  experiment_name: localization
+  run_name: ft_idrd_localization
+
+head:
+  num_output_units: 4
+
+freeze_backbone: True
+
+lightning_module:
+  num_train_samples: 371
+
+trainer:
+  max_epochs: 640
+
+load_model: "registry/pytorch/pretrained_resnet50backbone_256image_balanced_strong_aug.pt"
+
+save_model: "ft_idrd_localization.pt"

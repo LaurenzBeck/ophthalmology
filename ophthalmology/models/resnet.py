@@ -12,7 +12,7 @@ import torch.nn as nn
 from pl_bolts.models.self_supervised import resnets
 from pl_bolts.utils.self_supervised import torchvision_ssl_encoder
 
-from ophthalmology.layers import heads
+from ophthalmology.models import heads
 
 
 class ResNetBackbone(nn.Module):

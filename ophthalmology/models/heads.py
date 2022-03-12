@@ -13,25 +13,24 @@ import torch.nn.functional as F
 from ophthalmology.layers import activations
 
 
-class MultilayerClassificationHead(nn.Module):
+class MultilayerHead(nn.Module):
     def __init__(
         self,
         in_features: int = 8,
         hidden_layers: List[int] = [16, 16],
-        num_classes: int = 5,
+        num_output_units: int = 5,
         dropout: Optional[float] = None,
     ):
-        """Basic Module consisting of 3 consecutive Conv + BN + ReLU Layers
-        with optional striding determined by the downscale option.
+        """Basic MLP with SELU activations and optional alpha dropout.
 
         Args:
             in_features (int, optional): number of input feature maps or channels.
             hidden_layers (list[int], optional): list of numbers of neurons in each hidden layer. number of hidden
                 layers is determinded by the lenth of the list.
-            num_classes (int, optional): number of classes for the classification head.
+            num_output_units (int, optional): number of output neurons of the last linear layer of the head.
             dropout (Optional[float], optional): If provided include dropout with the given drop probability.
         """
-        super(MultilayerClassificationHead, self).__init__()
+        super(MultilayerHead, self).__init__()
         hidden_fc_layers = [
             nn.Sequential(
                 nn.Linear(hidden_layers[n], hidden_layers[n + 1]),
@@ -40,22 +39,20 @@ class MultilayerClassificationHead(nn.Module):
             for n in range(len(hidden_layers) - 1)
         ]
         self.head = nn.Sequential(
+            nn.BatchNorm1d(in_features),
             nn.AlphaDropout(dropout if dropout else 0.0),
             nn.Linear(in_features, hidden_layers[0]),
-            nn.BatchNorm1d(hidden_layers[0]),
             activations.SELU(),
             *hidden_fc_layers,
-            nn.AlphaDropout(dropout if dropout else 0.0),
             nn.BatchNorm1d(hidden_layers[-1]),
+            nn.AlphaDropout(dropout if dropout else 0.0),
         )
-        self.last_classification_layer = nn.Linear(
-            hidden_layers[-1], num_classes
-        )
+        self.last_linear_layer = nn.Linear(hidden_layers[-1], num_output_units)
 
         for param in self.head.parameters():
             # biases zero
             if len(param.shape) == 1:
-                nn.init.constant_(param, 0.1)  # ? change to 0.1 from 0.1
+                nn.init.constant_(param, 0.1)
             # others using lecun-normal initialization
             else:
                 nn.init.kaiming_normal_(
@@ -64,7 +61,7 @@ class MultilayerClassificationHead(nn.Module):
 
     def forward(self, x):
         out = self.head(x)
-        out = self.last_classification_layer(out)
+        out = self.last_linear_layer(out)
         return out
 
 

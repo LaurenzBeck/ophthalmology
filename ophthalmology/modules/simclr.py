@@ -15,7 +15,7 @@ import torch.nn.functional as F
 import torchinfo
 from loguru import logger as log
 
-from ophthalmology.layers import heads
+from ophthalmology.models import heads
 
 
 class NTXentLoss(nn.Module):

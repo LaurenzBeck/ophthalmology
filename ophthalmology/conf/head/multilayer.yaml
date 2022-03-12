@@ -1,0 +1,8 @@
+_target_: ophthalmology.models.heads.MultilayerHead
+
+in_features: 2048
+hidden_layers:
+  - 1024
+  - 512
+num_output_units: 5
+dropout: 0.1

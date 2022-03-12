@@ -8,7 +8,7 @@ https://hydra.cc/docs/intro/
 """
 
 import os
-from typing import List
+from typing import List, OrderedDict
 
 import hydra
 import mlflow
@@ -34,10 +34,30 @@ def main(config: DictConfig):
     model: torch.nn.Module = hydra.utils.call(config.model)
 
     if config.load_model:
-        model.load_state_dict(torch.load(config.load_model))
+        model.load_state_dict(
+            torch.load(hydra.utils.to_absolute_path(config.load_model))
+        )
         log.info(f"loading model {config.load_model}")
     else:
         log.info("using a fresh model")
+
+    # Attach a head on top of the model and possibly freeze the backbone.
+    # This is necessary to use a pre-trained backbone.
+    if config.get("head"):
+        if config.freeze_backbone:
+            log.info("freezing the backbone weights")
+            for param in model.parameters():
+                param.requires_grad = False
+
+        log.info("attaching a head on top of the backbone")
+        model = torch.nn.Sequential(
+            OrderedDict(
+                [
+                    ("backbone", model),
+                    ("head", hydra.utils.instantiate(config.head)),
+                ]
+            )
+        )
 
     train_transforms: torch.nn.Module = hydra.utils.instantiate(
         config.train_transforms

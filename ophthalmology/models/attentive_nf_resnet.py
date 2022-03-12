@@ -6,7 +6,8 @@ from typing import Optional
 import einops
 import torch.nn as nn
 
-from ophthalmology.layers import convolutional_stems, heads, residual_blocks
+from ophthalmology.layers import convolutional_stems, residual_blocks
+from ophthalmology.models import heads
 
 
 class AttentiveNFResNet(nn.Module):

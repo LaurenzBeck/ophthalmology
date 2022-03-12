@@ -1,0 +1,24 @@
+# @package _global_
+
+defaults:
+  - override /lightning_module/loss: mse
+  - override /lightning_module: disease_grading_regression
+  - override /datamodule: diabetic_retinopathy
+  - override /model: resnet_backbone
+  - override /head: multilayer
+
+logger:
+  experiment_name: disease_grading
+  run_name: ft_drd_grading
+
+head:
+  num_output_units: 1
+
+freeze_backbone: True
+
+trainer:
+  max_epochs: 64
+
+load_model: "registry/pytorch/pretrained_resnet50backbone_256image_balanced_strong_aug.pt"
+
+save_model: "ft_drd_grading.pt"
