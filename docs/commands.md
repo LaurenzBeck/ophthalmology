@@ -41,3 +41,41 @@ python ophthalmology/scripts/train_disease_grading.py environment=jku_ssd model=
 ```bash
 python ophthalmology/scripts/train_simclr.py environment=jku_ssd datamodule.batch_size=42 trainer.max_epochs=64 transforms@ssl_transforms=strong_normalize logger.run_name=balanced_pretrained_strong_aug_64_epochs save_model="pretrained_resnet50backbone_256image_balanced_strong_aug.pt" trainer.gpus=[0]
 ```
+
+---
+
+# Supervised Baselines
+
+## sup_drd_grading
+```bash
+python ophthalmology/scripts/train.py environment=jku_ssd experiment=sup_drd_grading trainer.gpus=[0]
+```
+
+## sup_idrd_grading
+```bash
+python ophthalmology/scripts/train.py environment=jku_ssd experiment=sup_idrd_grading trainer.gpus=[0]
+```
+
+## sup_idrd_segmentation
+
+## sup_idrd_localization
+```bash
+python ophthalmology/scripts/train.py environment=jku_ssd experiment=sup_idrd_localization trainer.gpus=[0]
+```
+
+## sup_mnist_grading
+```bash
+python ophthalmology/scripts/train.py environment=jku_ssd experiment=sup_mnist_grading trainer.gpus=[0]
+```
+
+# Contrastive Pre-Training
+
+## simclr_drd
+
+# Supervised Fine-tuning
+
+## ft_drd_grading
+## ft_idrd_grading
+## ft_idrd_segmentation
+## ft_idrd_localization
+## ft_mnist_grading
