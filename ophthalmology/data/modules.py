@@ -29,7 +29,7 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         image_dir: str = "",
         csv_file_train: str = "",
         csv_file_test: str = "",
-        image_transform: Optional[torch.nn.Module] = None,
+        test_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.8,
         batch_size: int = 16,
         num_workers: int = 1,
@@ -50,15 +50,13 @@ class DiabeticRetinopythyDetection(pl.LightningDataModule):
         self.pin_memory = pin_memory
 
         self.data_set = sets.DiabeticRetinopythyDetection(
-            image_dir,
-            csv_file_train,
-            transforms.Compose([image_transform, train_transform]),
+            image_dir, csv_file_train, train_transform
         )
 
         self.test_dataset = sets.DiabeticRetinopythyDetection(
             image_dir,
             csv_file_test,
-            image_transform,
+            test_transform,
         )
 
         self.num_train_samples = math.floor(
@@ -136,7 +134,7 @@ class IndianDiabeticRetinopythyDetection(pl.LightningDataModule):
         image_dir_test: str = "",
         csv_file_train: str = "",
         csv_file_test: str = "",
-        image_transform: Optional[torch.nn.Module] = None,
+        test_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.8,
         batch_size: int = 16,
         num_workers: int = 1,
@@ -157,15 +155,13 @@ class IndianDiabeticRetinopythyDetection(pl.LightningDataModule):
         self.pin_memory = pin_memory
 
         self.data_set = sets.IndianDiabeticRetinopythyDetection(
-            image_dir_train,
-            csv_file_train,
-            transforms.Compose([image_transform, train_transform]),
+            image_dir_train, csv_file_train, train_transform
         )
 
         self.test_dataset = sets.IndianDiabeticRetinopythyDetection(
             image_dir_test,
             csv_file_test,
-            image_transform,
+            test_transform,
         )
 
         self.num_train_samples = math.floor(
@@ -245,7 +241,7 @@ class IndianDiabeticRetinopythyDetectionLocalization(pl.LightningDataModule):
         csv_file_test_disk: str = "",
         csv_file_train_fovea: str = "",
         csv_file_test_fovea: str = "",
-        image_transform: Optional[torch.nn.Module] = None,
+        test_transform: Optional[torch.nn.Module] = None,
         train_test_split: float = 0.8,
         batch_size: int = 16,
         num_workers: int = 1,
@@ -267,14 +263,14 @@ class IndianDiabeticRetinopythyDetectionLocalization(pl.LightningDataModule):
             image_dir_train,
             csv_file_train_disk,
             csv_file_train_fovea,
-            transforms.Compose([image_transform, train_transform]),
+            train_transform,
         )
 
         self.test_dataset = sets.IndianDiabeticRetinopythyDetectionLocalization(
             image_dir_test,
             csv_file_test_disk,
             csv_file_test_fovea,
-            image_transform,
+            test_transform,
         )
 
         self.num_train_samples = math.floor(
@@ -340,7 +336,7 @@ class RetinaMNIST(pl.LightningDataModule):
         self,
         data_dir,
         train_transform: torch.nn.Module = None,
-        image_transform: Optional[torch.nn.Module] = None,
+        test_transform: Optional[torch.nn.Module] = None,
         batch_size: int = 16,
         num_workers: int = 1,
         pin_memory: bool = False,
@@ -368,7 +364,7 @@ class RetinaMNIST(pl.LightningDataModule):
 
         self.val_dataset = medmnist.dataset.RetinaMNIST(
             split="val",
-            transform=image_transform,
+            transform=test_transform,
             download=True,
             root=data_dir,
             target_transform=lambda target: torch.tensor(target.item()),
@@ -376,7 +372,7 @@ class RetinaMNIST(pl.LightningDataModule):
 
         self.test_dataset = medmnist.dataset.RetinaMNIST(
             split="test",
-            transform=image_transform,
+            transform=test_transform,
             download=True,
             root=data_dir,
             target_transform=lambda target: torch.tensor(target.item()),

@@ -1,0 +1,20 @@
+# @package _global_
+
+# specify here default training configuration
+defaults:
+  - _self_
+  - model: resnet_backbone
+  - transforms: resize_normalize
+  - datamodule: retina_mnist
+
+  - hydra: no_subdir
+  - environment: local
+
+# seed for the random number generators
+seed: 42
+
+# Path to model checkpoint.
+load_model: registry/pytorch/pretrained_resnet50backbone_256image_balanced_strong_aug.pt
+
+# patch size
+image_size: 256

@@ -9,13 +9,13 @@ defaults:
   - model: resnet50
   - head: null
   - transforms@train_transforms: strong
-  - transforms@image_transforms: resize_normalize
+  - transforms@test_transforms: resize_normalize
   - datamodule: diabetic_retinopathy
   - callbacks: none
   - logger: mlflow
   - experiment: sup_drd_grading
 
-  - hydra: default
+  - hydra: mlflow
   - environment: local
   # enable color logging
   - override hydra/hydra_logging: colorlog

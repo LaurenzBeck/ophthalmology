@@ -63,8 +63,8 @@ def main(config: DictConfig):
         config.train_transforms
     )
 
-    image_transforms: torch.nn.Module = hydra.utils.instantiate(
-        config.image_transforms
+    test_transforms: torch.nn.Module = hydra.utils.instantiate(
+        config.test_transforms
     )
 
     # set the seeds again to accomodate for different rng generator offsets
@@ -74,7 +74,7 @@ def main(config: DictConfig):
     datamodule: pl.LightningDataModule = hydra.utils.instantiate(
         config.datamodule,
         train_transform=train_transforms,
-        image_transform=image_transforms,
+        test_transform=test_transforms,
     )
 
     lightning_module: pl.LightningModule = hydra.utils.instantiate(

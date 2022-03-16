@@ -12,7 +12,7 @@ defaults:
   - callbacks: none
   - logger: mlflow
 
-  - hydra: default
+  - hydra: mlflow
   - environment: local
   # enable color logging
   - override hydra/hydra_logging: colorlog
