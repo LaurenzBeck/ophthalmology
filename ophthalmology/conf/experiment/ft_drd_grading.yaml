@@ -7,6 +7,9 @@ defaults:
   - override /model: resnet_backbone
   - override /head: multilayer
 
+lightning_module:
+  learning_rate: 0.001
+
 logger:
   experiment_name: disease_grading
   run_name: ft_drd_grading

@@ -1,9 +1,9 @@
 # Datasets
 
 Three datasets from retina scans fundus images were considered:
-- Diabetic Retinopathy Detection - eyePACS
-- Indian Diabetic Retinopathy Image Dataset - IDRiD
-- MedMNIST v2 - RetinaMNIST
+* Diabetic Retinopathy Detection - eyePACS
+* Indian Diabetic Retinopathy Image Dataset - IDRiD
+* MedMNIST v2 - RetinaMNIST
 
 [TOC]
 

@@ -18,6 +18,7 @@ freeze_backbone: True
 
 lightning_module:
   num_train_samples: 371
+  learning_rate: 0.001
 
 trainer:
   max_epochs: 640
