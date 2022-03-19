@@ -1,0 +1,13 @@
+# @package _global_
+
+defaults:
+  - override /transforms@ssl_transforms: strong_normalize
+
+logger:
+  experiment_name: simclr
+  run_name: simclr_drd
+
+trainer:
+  max_epochs: 64
+
+save_model: "pretrained_resnet50backbone_256image_balanced_strong_aug_64_epochs.pt"
