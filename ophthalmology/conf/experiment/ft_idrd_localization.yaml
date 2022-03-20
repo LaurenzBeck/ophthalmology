@@ -23,6 +23,6 @@ lightning_module:
 trainer:
   max_epochs: 640
 
-load_model: "registry/pytorch/pretrained_resnet50backbone_256image_balanced_strong_aug_64_epochs"
+load_model: "registry/pytorch/pretrained_resnet50backbone_256image_balanced_strong_aug_64_epochs.pt"
 
 save_model: "ft_idrd_localization.pt"
