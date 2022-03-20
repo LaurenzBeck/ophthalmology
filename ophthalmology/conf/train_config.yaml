@@ -8,7 +8,7 @@ defaults:
   - lightning_module: disease_grading_classification
   - model: resnet50
   - head: null
-  - transforms@train_transforms: strong
+  - transforms@train_transforms: strong_normalize
   - transforms@test_transforms: resize_normalize
   - datamodule: diabetic_retinopathy
   - callbacks: none

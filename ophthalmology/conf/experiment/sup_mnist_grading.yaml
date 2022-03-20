@@ -4,7 +4,6 @@ defaults:
   - override /lightning_module/loss: mse
   - override /lightning_module: disease_grading_regression
   - override /datamodule: retina_mnist
-  - override /transforms@train_transforms: strong_normalize
   - override /model: resnet18
 
 logger:
