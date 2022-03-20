@@ -49,6 +49,9 @@ class ResNetBackbone(nn.Module):
         )
 
     def forward(self, x):
+        # if a single image is fed, unsqueeze it to make a batch with single item
+        if len(x.shape) == 3:
+            x = x.unsqueeze(0)
         # torchvision_ssl_encoder returns a list of predictions, which we need to unpack
         x = self.encoder(x)[0]
 
@@ -96,6 +99,9 @@ class ResNet(nn.Module):
         self.fc = nn.Linear(num_resnet_features, num_output_units)
 
     def forward(self, x):
+        # if a single image is fed, unsqueeze it to make a batch with single item
+        if len(x.shape) == 3:
+            x = x.unsqueeze(0)
         # torchvision_ssl_encoder returns a list of predictions, which we need to unpack
         x = self.encoder(x)[0]
         x = self.fc(x)
