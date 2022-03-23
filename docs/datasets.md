@@ -52,6 +52,14 @@ train samples with "strong" augmentation settings:
 
 link: https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid
 
+dataset statistic | value
+--- | ---
+image size | width: 4288, height: 2848
+number of training samples for grading | 413
+number of testing samples for grading | 103
+number of training samples for localization | 515
+number of testing samples for localization | 515
+
 image sample:
 ![drd_sample](./images/idrd_sample.jpg)
 

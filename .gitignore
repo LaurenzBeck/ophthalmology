@@ -133,3 +133,5 @@ dmypy.json
 /data
 .vscode
 workspace.code-workspace
+
+registry/pytorch/ft_*

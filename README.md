@@ -43,11 +43,10 @@ support physicians diagnosing certain eye deseases.
 Following current research trends from 2020/2021, contrastive representation learning methods and the influence of the view
 selection and generation process on the downstream performance was chosen as the main research focus.
 
-For a proper downstream evaluation of the learned representations, three tasks on retina scans are used:
+For a proper downstream evaluation of the learned representations, two tasks on retina scans are used:
 
 1. deasease grading of diabetic retinopathy
-2. image segmentation of certain anatomic and pathogen regions
-3. localization of important landmarks of the retina
+2. localization of important landmarks of the retina
 
 ## Dataset
 
