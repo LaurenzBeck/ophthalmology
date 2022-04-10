@@ -39,7 +39,7 @@ I decided to join the Machine Learning Institute for Life Science and was superv
 + Andreas Fürst
 + Elisabeth Rumetshofer
 
-The domain of the project is computer vison applied to high-resolution retina scans to help developing models that can
+The domain of the project is computer vision applied to high-resolution retina scans to help developing models that can
 support physicians diagnosing certain eye deseases.
 
 ## Task
