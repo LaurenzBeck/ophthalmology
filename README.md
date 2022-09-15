@@ -1,5 +1,3 @@
-![image_header](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fa1anqn8ned-flywheel.netdna-ssl.com%2Fwp-content%2Fuploads%2F2019%2F03%2Foph-post_03222019.jpg&f=1&nofb=1)
-
 <h1 align="center">👁 - Contrastive Learning for Ophthalmology - 👁</h1>
 
 <p align="center">
